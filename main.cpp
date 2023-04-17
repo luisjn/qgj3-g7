@@ -146,7 +146,7 @@ public:
     {
         vx -= 1850.0f * dt;
         vy -= 1850.0f * dt;
-        X += X;
+        X += x;
         Y += y;
 
         if (X > Width - 3)
