@@ -1,51 +1,37 @@
-#include <iostream>
-// #include <stdlib.h>
-
 #include "Engine.hpp"
 
 bool Engine::Initialize()
 {
-    mWindow = GetStdHandle(STD_OUTPUT_HANDLE);
-    if (mWindow == nullptr)
-    {
-        return false;
-    }
+    mRenderer.Initialize();
 
     return true;
 }
 
 void Engine::Shutdown()
 {
-    if (mWindow != nullptr)
-    {
-        mWindow = nullptr;
-    }
-    exit(0);
+    mRenderer.Shutdown();
 }
 
 void Engine::Run()
 {
+    float dt = 0;
     mRunning = true;
 
     while (mRunning)
     {
         ProcessInput();
-        Update();
+        dt = Update();
         GenerateOutputs();
     }
 }
 
 void Engine::ProcessInput()
 {
-    std::cout << "input\n";
-    // if (GetKeyState(VK_UP) & 0x8000)
-    //     std::cout << "up";
-    // if (GetKeyState(VK_ESCAPE) & 0x8000)
-    //     mRunning = false;
+    mRenderer.Input();
 }
 
 // This code implements a “busy wait” (empty while loop) until at least 16ms have passed, ensuring that the maximum FPS will be 60
-void Engine::Update()
+float Engine::Update()
 {
     // Tracks next "clock" value that's acceptable to perform an update.
     static int nextTicks = 0;
@@ -61,7 +47,8 @@ void Engine::Update()
 
     // Get current ticks value. Save next ticks for +16ms.
     uint32_t currentTicks = clock();
-    nextTicks = currentTicks + 16;
+    nextTicks = currentTicks + mFrameTime;
+    // nextTicks = currentTicks + 16;
 
     // Calculate change from current to last, and convert to seconds.
     uint32_t deltaTicks = currentTicks - lastTicks;
@@ -70,22 +57,32 @@ void Engine::Update()
     // Save ticks value for next frame.
     lastTicks = currentTicks;
 
-    // For debugging
+    /*
+     * For debugging
+     */
+
     // Ensure delta time is never negative.
-    if (deltaTime < 0.0f)
-    {
-        deltaTime = 0.0f;
-    }
+    // if (deltaTime < 0.0f)
+    // {
+    //     deltaTime = 0.0f;
+    // }
 
     // Limit the time delta to 0.05 seconds (about 20FPS).
-    if (deltaTime > 0.05f)
-    {
-        deltaTime = 0.05f;
-    }
+    // if (deltaTime > 0.05f)
+    // {
+    //     deltaTime = 0.05f;
+    // }
+
+    /*
+     * For debugging
+     */
+
+    return deltaTime;
 }
 
 void Engine::GenerateOutputs()
 {
-    // TODO
-    std::cout << "outputs \n";
+    mRenderer.Clear();
+    mRenderer.Render();
+    // mRenderer.Present();
 }

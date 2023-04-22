@@ -1,6 +1,3 @@
-// #include <conio.h>
-// #include <iostream>
-
 #include "Engine.hpp"
 
 int main()
@@ -15,8 +12,6 @@ int main()
     }
 
     e.Shutdown();
-
-    // getch();
 
     return 0;
 }

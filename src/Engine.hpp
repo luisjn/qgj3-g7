@@ -1,5 +1,6 @@
 #pragma once
-#include <windows.h>
+
+#include "Renderer.hpp"
 
 class Engine
 {
@@ -10,9 +11,11 @@ public:
 
 private:
     bool mRunning = false;
-    HANDLE mWindow = nullptr;
+    float mFrameTime = 33; // 40=25fps 33=30fps, 16=60fps
+
+    Renderer mRenderer;
 
     void ProcessInput();
-    void Update();
+    float Update();
     void GenerateOutputs();
 };
