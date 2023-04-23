@@ -18,12 +18,19 @@ private:
     MapASCII** maps_ASCII; // LF: In memory object to file interact - Maps
     std::string level_file_path;
     std::fstream level_file;
-    void LoadMaps();
+    void LoadMap(int x, int y);
+    void UnloadMap(int x, int y);
+    void LoadAllMaps();
     void LoadLevelFileInfo();
+    void InitializeMapMatrix();
 public:
     char** GetMapASCII();
-    void MovePlayer();
-    void LoadLevel();
+//    void MovePlayer();
+//    void LoadLevel();
+    void MoveMapUp();
+    void MoveMapDown();
+    void MoveMapLeft();
+    void MoveMapRight();
     int GetMapSizeX();
     int GetMapSizeY();
     LevelFile(int lID);

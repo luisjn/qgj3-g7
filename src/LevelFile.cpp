@@ -20,7 +20,9 @@ LevelFile::LevelFile(int lID)
     std::cout << "pausa de Int: ";
     std::cin >> noimporta;
 #endif
-    LoadMaps(); // Load all maps info fo the level (run "LoadLevelFileInfo()" previous!!!).
+    InitializeMapMatrix();
+    //LoadAllMaps(); // Load all maps info fo the level (run "LoadLevelFileInfo()" previous!!!).
+    LoadMap(activeMap_x, activeMap_y); // Load one map at time.
 }
 
 LevelFile::~LevelFile()
@@ -30,6 +32,65 @@ LevelFile::~LevelFile()
 
 // Voids: ------------------------------------------------------------------------------------------------------------
 
+void LevelFile::MoveMapUp()
+{
+
+
+    UnloadMap(activeMap_x,activeMap_y);
+//    delete maps_ASCII;
+//    InitializeMapMatrix();
+    int new_y = activeMap_y-1;
+    if(new_y>=0){
+        activeMap_y = new_y;
+    }
+    if(new_y<0){
+        activeMap_y = maxMaps_y-1;
+    }
+    LoadMap(activeMap_x,activeMap_y);
+}
+
+void LevelFile::MoveMapDown()
+{
+    UnloadMap(activeMap_x,activeMap_y);
+    //InitializeMapMatrix();
+    int new_y = activeMap_y+1;
+    if(new_y<=(maxMaps_y-1)){
+        activeMap_y = new_y;
+    }
+    if(new_y>(maxMaps_y-1)){
+        activeMap_y = 0;
+    }
+    LoadMap(activeMap_x,activeMap_y);
+}
+
+void LevelFile::MoveMapLeft()
+{
+    UnloadMap(activeMap_x,activeMap_y);
+    //InitializeMapMatrix();
+    int new_x = activeMap_x-1;
+    if(new_x>=0){
+        activeMap_x = new_x;
+    }
+    if(new_x<0){
+        activeMap_x = maxMaps_x-1;
+    }
+    LoadMap(activeMap_x,activeMap_y);
+}
+
+void LevelFile::MoveMapRight()
+{
+    UnloadMap(activeMap_x,activeMap_y);
+    //InitializeMapMatrix();
+    int new_x = activeMap_x+1;
+    if(new_x<=(maxMaps_x-1)){
+        activeMap_x = new_x;
+    }
+    if(new_x>(maxMaps_x-1)){
+        activeMap_x = 0;
+    }
+    LoadMap(activeMap_x,activeMap_y);
+}
+
 char LevelFile::GenerateRandomChar(char startChar)
 {
     char randomChar;
@@ -37,13 +98,49 @@ char LevelFile::GenerateRandomChar(char startChar)
     return randomChar;    
 }
 
-void LevelFile::LoadMaps()
+void LevelFile::InitializeMapMatrix()
 {
     maps_ASCII = new MapASCII*[maxMaps_y];
     for(int i=0;i<maxMaps_y;i++){
         MapASCII* vector = new MapASCII[maxMaps_x];
         maps_ASCII[i]=vector;
     }
+}
+
+void LevelFile::LoadMap(int x, int y)
+{
+    std::string pathMap;
+    pathMap=
+        GAME_MAP_NAME_INITIAL_PATH+
+        std::to_string(levelID)+
+        GAME_MAP_NAME_SEPARATION+
+        std::to_string(x)+
+        GAME_MAP_NAME_SEPARATION+
+        std::to_string(y)+
+        GAME_MAP_EXTENTION;
+    maps_ASCII[x][y].InitializeMap(pathMap);
+}
+
+void LevelFile::UnloadMap(int x, int y)
+{
+    /*
+    char* Demo;
+    Demo = new char[3] {'a','b','C'};
+    delete Demo;
+    std::cout << "Demo[0]="<<Demo[0]<< " - [1]="<<Demo[1]<< " - [2]="<<Demo[2]<<"\n";
+    Demo = new char[3] {'f','g','H'};
+    std::cout << "Demo[0]="<<Demo[0]<< " - [1]="<<Demo[1]<< " - [2]="<<Demo[2]<<"\n";
+    */
+   
+    delete maps_ASCII;
+    InitializeMapMatrix();
+
+
+    //maps_ASCII[x][y].~MapASCII();
+}
+
+void LevelFile::LoadAllMaps()
+{
     std::string pathMap;
     for (int i=0;i<maxMaps_y;i++){
         for (int j=0;j<maxMaps_x;j++){
@@ -71,6 +168,7 @@ void LevelFile::LoadMaps()
 
 char** LevelFile::GetMapASCII()
 {
+    std::cout << "ActiveMap = (" << activeMap_x<<";" <<activeMap_y<<")\n";
     return maps_ASCII[activeMap_x][activeMap_y].GetMapASCII();
 }
 

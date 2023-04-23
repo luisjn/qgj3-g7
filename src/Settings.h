@@ -6,7 +6,6 @@
 // A) Debug Mode activated if this line are activated and no commented ("//"):
 //#define DEBUG_MODE
 
-
 // Define for Credits:
 // -------------------
 #define CREDITS_INCLUDE
@@ -64,3 +63,7 @@
 #define GAMEPLAY_MOVE_RIGHT 1
 #define GAMEPLAY_MOVE_UP 2
 #define GAMEPLAY_MOVE_DOWN 3
+#define GAMEPLAY_MOVE_A 10
+#define GAMEPLAY_MOVE_D 11
+#define GAMEPLAY_MOVE_W 12
+#define GAMEPLAY_MOVE_S 13

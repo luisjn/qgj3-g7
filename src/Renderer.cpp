@@ -98,6 +98,24 @@ void Renderer::ProcessInput()
         gameplay_tloz->InputMove(GAMEPLAY_MOVE_DOWN);
     }
 
+    // WASD:
+    if (GetKeyState('A') & 0x8000)
+    {
+        gameplay_tloz->InputMove(GAMEPLAY_MOVE_A);
+    }
+    if (GetKeyState('D') & 0x8000)
+    {
+        gameplay_tloz->InputMove(GAMEPLAY_MOVE_D);
+    }
+    if (GetKeyState('W') & 0x8000)
+    {
+        gameplay_tloz->InputMove(GAMEPLAY_MOVE_W);
+    }
+    if (GetKeyState('S') & 0x8000)
+    {
+        gameplay_tloz->InputMove(GAMEPLAY_MOVE_S);
+    }
+
     // SPACE:
     if (GetKeyState(VK_SPACE) & 0x8000)
     {
@@ -144,12 +162,14 @@ void Renderer::ProcessInput()
     }
     if (GetKeyState(VK_F10) & 0x8000)
     {
+        gameplay_tloz->InputMove(50);
     }
-    if (GetKeyState(VK_F11) & 0x8000)
-    {
-    }
+    //if (GetKeyState(VK_F11) & 0x8000) // NOT to use F11 (full screen)!!!
+    //{
+    //}
     if (GetKeyState(VK_F12) & 0x8000)
     {
+        gameplay_tloz->InputMove(51);
     }
     
 }
