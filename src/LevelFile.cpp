@@ -34,11 +34,7 @@ LevelFile::~LevelFile()
 
 void LevelFile::MoveMapUp()
 {
-
-
     UnloadMap(activeMap_x,activeMap_y);
-//    delete maps_ASCII;
-//    InitializeMapMatrix();
     int new_y = activeMap_y-1;
     if(new_y>=0){
         activeMap_y = new_y;
@@ -52,7 +48,6 @@ void LevelFile::MoveMapUp()
 void LevelFile::MoveMapDown()
 {
     UnloadMap(activeMap_x,activeMap_y);
-    //InitializeMapMatrix();
     int new_y = activeMap_y+1;
     if(new_y<=(maxMaps_y-1)){
         activeMap_y = new_y;
@@ -66,7 +61,6 @@ void LevelFile::MoveMapDown()
 void LevelFile::MoveMapLeft()
 {
     UnloadMap(activeMap_x,activeMap_y);
-    //InitializeMapMatrix();
     int new_x = activeMap_x-1;
     if(new_x>=0){
         activeMap_x = new_x;
@@ -80,7 +74,6 @@ void LevelFile::MoveMapLeft()
 void LevelFile::MoveMapRight()
 {
     UnloadMap(activeMap_x,activeMap_y);
-    //InitializeMapMatrix();
     int new_x = activeMap_x+1;
     if(new_x<=(maxMaps_x-1)){
         activeMap_x = new_x;
@@ -123,20 +116,8 @@ void LevelFile::LoadMap(int x, int y)
 
 void LevelFile::UnloadMap(int x, int y)
 {
-    /*
-    char* Demo;
-    Demo = new char[3] {'a','b','C'};
-    delete Demo;
-    std::cout << "Demo[0]="<<Demo[0]<< " - [1]="<<Demo[1]<< " - [2]="<<Demo[2]<<"\n";
-    Demo = new char[3] {'f','g','H'};
-    std::cout << "Demo[0]="<<Demo[0]<< " - [1]="<<Demo[1]<< " - [2]="<<Demo[2]<<"\n";
-    */
-   
     delete maps_ASCII;
     InitializeMapMatrix();
-
-
-    //maps_ASCII[x][y].~MapASCII();
 }
 
 void LevelFile::LoadAllMaps()
