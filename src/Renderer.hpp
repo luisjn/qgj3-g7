@@ -16,6 +16,9 @@ public:
     void GetSoundEngine(Sound* SoundEngine); // SE: To get the Sound Engine pass by Game Engine
 
 private:
+    int consoleQtyCols, consoleQtyRows; // To get console max text
+    void GetConsoleMax(); // To get console max text
+
     HANDLE mWindow = nullptr;
     COORD mCursorPosition;
 

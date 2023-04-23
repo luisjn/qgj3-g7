@@ -40,6 +40,13 @@ void Renderer::GetSoundEngine(Sound* SoundEngine)
     msound_engine = SoundEngine;
 }
 
+void Renderer::GetConsoleMax() // To get console max text
+{
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    consoleQtyCols = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+    consoleQtyRows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+}
 
 void Renderer::Input()
 {
@@ -91,6 +98,7 @@ void Renderer::Clear()
 
 void Renderer::Render()
 {
+    GetConsoleMax(); // To get console max text
     char space[] = R"(.         _  .          .          .    +     .          .          .      .
         .(_)          .            .            .            .       :
         .   .      .    .     .     .    .      .   .      . .  .  -+-        .

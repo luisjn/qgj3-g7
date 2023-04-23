@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Renderer.hpp"
+#include "Settings.h" // General Game DEFINEs
 #include "Sound.hpp" // SE: Add sound engine library
-#include "LoadFile.hpp" // LF: Add file loadding library
+#include "LevelFile.hpp" // LF: Add file loadding library
+#include <string> // LF: To auto-generate names
 
 class Engine
 {
@@ -16,7 +18,7 @@ private:
     float mFrameTime = 33; // 40=25fps 33=30fps, 16=60fps
 
     Sound* sound_engine;  // SE: In memory object to sound engine interact
-    LoadFile* load_file; // LF: In memory object to file interact
+    LevelFile* level_00; // LF: In memory object to file interact - Level
 
     Renderer mRenderer;
 

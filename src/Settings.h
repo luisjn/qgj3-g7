@@ -33,7 +33,21 @@
 #define SOUND_HIT_03_PATH "Sounds/Hit_03.wav"
 #define MUSIC_00_PATH "Music/Juhani Junkala [Retro Game Music Pack] Ending.wav"
 
+// Define for Load Files:
+// ----------------------
+// A) Character to "jump" line (Enter):
+#define CHAR_LINE_BREAK '\n'
+
 // Define for Levels:
 // ------------------
-// B) Files "LVL" locations (TXT files):
-#define LEVEL_00_PATH "Levels/Level_00.txt"
+// A) Files "LVL" locations (TXT files) (non-automatic):
+#define GAME_LEVEL_00_PATH "Levels/Level_00.txt"
+
+// Define for Maps:
+// ----------------
+// A) Files "MAP" locations (TXT files) (non-automatic):
+//#define GAME_MAP_00_PATH "Levels/Map_00.txt"
+// B) Generates "MAP" files (TXT files) (automatic name):
+#define GAME_MAP_NAME_INITIAL_PATH "Levels/Map_"
+#define GAME_MAP_NAME_SEPARATION "_"
+#define GAME_MAP_EXTENTION ".txt"
