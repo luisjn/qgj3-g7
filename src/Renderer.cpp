@@ -35,6 +35,12 @@ void Renderer::Shutdown()
     exit(0);
 }
 
+void Renderer::GetSoundEngine(Sound* SoundEngine)
+{
+    msound_engine = SoundEngine;
+}
+
+
 void Renderer::Input()
 {
     if (GetKeyState(VK_RIGHT) & 0x8000)
@@ -53,6 +59,29 @@ void Renderer::Input()
     {
         mSpaceship.Down();
     }
+
+    // SE: Sound test keys:
+    if (GetKeyState(VK_SPACE) & 0x8000)
+    {
+        msound_engine->PlaySnd(0); // SE: Sound test: Shot!
+    }
+    if (GetKeyState(VK_F1) & 0x8000)
+    {
+        msound_engine->SetActivatedSound(false); // SE: Sound activate sound engine
+    }
+    if (GetKeyState(VK_F2) & 0x8000)
+    {
+        msound_engine->SetActivatedSound(true); // SE: Sound deactivate sound engine
+    }
+    if (GetKeyState(VK_F3) & 0x8000)
+    {
+        msound_engine->ChangeActivatedSound(); // SE: Change avtivate sound state
+    }
+    if (GetKeyState(VK_F4) & 0x8000)
+    {
+        msound_engine->PlayMusic(0); // SE: Change avtivate sound state
+    }
+    // SE: End sound test keys.
 }
 
 void Renderer::Clear()

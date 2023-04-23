@@ -3,12 +3,18 @@
 bool Engine::Initialize()
 {
     mRenderer.Initialize();
+    sound_engine = new Sound(); // SE: Initied Sound Engine
+    load_file = new LoadFile(); // LF: Initied Load File
 
+    mRenderer.GetSoundEngine(sound_engine);
     return true;
 }
 
 void Engine::Shutdown()
 {
+    delete sound_engine; // SE: Delete Sound Engine
+    delete load_file; // LF: Delete Load File
+
     mRenderer.Shutdown();
 }
 
