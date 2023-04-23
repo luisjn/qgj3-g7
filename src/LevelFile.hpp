@@ -16,7 +16,10 @@ private:
     char GenerateRandomChar(char startChar);
     int levelID,maxMaps_x,maxMaps_y,activeMap_x,activeMap_y;
     MapASCII** maps_ASCII; // LF: In memory object to file interact - Maps
+    std::string level_file_path;
+    std::fstream level_file;
     void LoadMaps();
+    void LoadLevelFileInfo();
 public:
     char** GetMapASCII();
     void MovePlayer();

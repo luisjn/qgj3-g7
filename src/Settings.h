@@ -42,6 +42,9 @@
 // ------------------
 // A) Files "LVL" locations (TXT files) (non-automatic):
 #define GAME_LEVEL_00_PATH "Levels/Level_00.txt"
+// B) Generates "LVL" files (TXT files) (automatic name):
+#define GAME_LEVEL_NAME_INITIAL_PATH "Levels/Level_"
+#define GAME_LEVEL_EXTENTION ".txt"
 
 // Define for Maps:
 // ----------------
