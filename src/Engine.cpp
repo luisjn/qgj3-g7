@@ -2,52 +2,23 @@
 
 bool Engine::Initialize()
 {
-    // Initiate random character generator (for test propourse):
-    srand(time(0));
-
-    mRenderer.Initialize();
-    sound_engine = new Sound(); // SE: Initied Sound Engine
-    level_00 = new LevelFile(0); // LF: Initiated Level 00
-
-    mRenderer.GetSoundEngine(sound_engine);
-    return true;
+    mRenderer = new Renderer();
+    return mRenderer->Initialize(&mRunning);
 }
 
 void Engine::Shutdown()
 {
-    delete sound_engine; // SE: Delete Sound Engine
-    delete level_00; // LF: Delete Load File
-
-    mRenderer.Shutdown();
+    delete mRenderer;
 }
 
 void Engine::Run()
 {
     float dt = 0;
     mRunning = true;
-
     while (mRunning)
     {
-        ProcessInput();
+        mRenderer->Update();
         dt = Update();
-        GenerateOutputs();
-    }
-}
-
-void Engine::ProcessInput()
-{
-    mRenderer.Input();
-    if (GetKeyState(VK_F9) & 0x8000)
-    {
-    }
-    if (GetKeyState(VK_F10) & 0x8000)
-    {
-    }
-    if (GetKeyState(VK_F11) & 0x8000)
-    {
-    }
-    if (GetKeyState(VK_F12) & 0x8000)
-    {
     }
 }
 
@@ -99,11 +70,4 @@ float Engine::Update()
      */
 
     return deltaTime;
-}
-
-void Engine::GenerateOutputs()
-{
-    mRenderer.Clear();
-    mRenderer.Render();
-    // mRenderer.Present();
 }

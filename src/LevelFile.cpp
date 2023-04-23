@@ -15,11 +15,11 @@ LevelFile::LevelFile(int lID)
 #endif
     levelID = lID;
     LoadLevelFileInfo(); // This must be run PREVIOUS to load Maps (have Maps info from file)
-
-    int jhk;
+#ifdef DEBUG_MODE
+    int noimporta;
     std::cout << "pausa de Int: ";
-    std::cin >> jhk;
-
+    std::cin >> noimporta;
+#endif
     LoadMaps(); // Load all maps info fo the level (run "LoadLevelFileInfo()" previous!!!).
 }
 
@@ -72,6 +72,16 @@ void LevelFile::LoadMaps()
 char** LevelFile::GetMapASCII()
 {
     return maps_ASCII[activeMap_x][activeMap_y].GetMapASCII();
+}
+
+int LevelFile::GetMapSizeX()
+{
+    return maps_ASCII[activeMap_x][activeMap_y].GetMapSizeX();
+}
+
+int LevelFile::GetMapSizeY()
+{
+    return maps_ASCII[activeMap_x][activeMap_y].GetMapSizeY();
 }
 
 void LevelFile::LoadLevelFileInfo()

@@ -26,7 +26,9 @@
 // A) Define ONLY one type of Sound type (add "//" to the other):
 #define SOUND_ENGINE_WINDOWS
 //#define SOUND_ENGINE_SDL2
-// B) Files "WAV" locations:
+// B) Define if Sound start ENABLE by default:
+#define SOUND_ENGINE_AUTOSTART
+// C) Files "WAV" locations:
 #define SOUND_HIT_00_PATH "Sounds/Hit_00.wav"
 #define SOUND_HIT_01_PATH "Sounds/Hit_01.wav"
 #define SOUND_HIT_02_PATH "Sounds/Hit_02.wav"
@@ -54,3 +56,11 @@
 #define GAME_MAP_NAME_INITIAL_PATH "Levels/Map_"
 #define GAME_MAP_NAME_SEPARATION "_"
 #define GAME_MAP_EXTENTION ".txt"
+
+// Define for Gameplay:
+// --------------------
+// A) Move input type:
+#define GAMEPLAY_MOVE_LEFT 0
+#define GAMEPLAY_MOVE_RIGHT 1
+#define GAMEPLAY_MOVE_UP 2
+#define GAMEPLAY_MOVE_DOWN 3

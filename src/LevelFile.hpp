@@ -24,6 +24,8 @@ public:
     char** GetMapASCII();
     void MovePlayer();
     void LoadLevel();
+    int GetMapSizeX();
+    int GetMapSizeY();
     LevelFile(int lID);
     ~LevelFile();
 };

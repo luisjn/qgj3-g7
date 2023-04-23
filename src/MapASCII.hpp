@@ -27,6 +27,8 @@ public:
     void WriteMapToFile();
     void SetMap(std::string new_map_path);
     void InitializeMap(std::string new_map_path);
+    int GetMapSizeX();
+    int GetMapSizeY();
     MapASCII();
     MapASCII(std::string new_map_path);
     ~MapASCII();

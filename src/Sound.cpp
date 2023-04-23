@@ -17,6 +17,14 @@ Sound::Sound()
 #endif
 }
 
+Sound::Sound(bool activeInitial)
+{
+#ifdef DEBUG_MODE
+	std::cout << "Sound Start...\n";
+#endif
+	SetActivatedSound(activeInitial);
+}
+
 Sound::~Sound()
 {
 #ifdef DEBUG_MODE

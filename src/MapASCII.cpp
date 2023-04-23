@@ -162,7 +162,7 @@ void MapASCII::LoadMap()
                 std::cout << "ALERT: Error reading: " << map_file_path << "\n";
 #endif
             }
-            map_file.close(); 
+            map_file.close();
         }
     }
 }
@@ -198,6 +198,16 @@ void MapASCII::WriteMapToFile()
 char** MapASCII::GetMapASCII()
 {
     return map_ascii;
+}
+
+int MapASCII::GetMapSizeX()
+{
+    return longVertical;
+}
+
+int MapASCII::GetMapSizeY()
+{
+    return longHorizontal;
 }
 
 char MapASCII::GetChar(int x, int y)

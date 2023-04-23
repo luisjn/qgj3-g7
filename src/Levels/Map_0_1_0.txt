@@ -1,8 +1,20 @@
-xxxxxxx             x
-xx                xxx
- A                   
-                     
-                     
-xxx                  
-x  xxx              x
-xxxx            xxxxx
+10                                                                                                                A  x
+x                                                                                                                  xxx
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
+xxx                                                                                                                   
+xxxx                                                                                                                 x
+xxxx                                                                                                             xxxxx

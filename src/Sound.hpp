@@ -18,6 +18,7 @@ public:
     void SetActivatedSound(bool newSoundState);
     bool ChangeActivatedSound();
     bool GetSoundActivated();
+    Sound(bool activeInitial);
     Sound();
     ~Sound();
 };
