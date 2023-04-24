@@ -46,7 +46,7 @@ bool Renderer::Initialize(bool* mRunn)
 #endif
     gameplay_tloz = new GameplayA(); // GP: Initiated gameplay
     gameplay_tloz->GetSoundEngine(sound_engine); // GP: Pass the sound engine direction
-    gameplay_tloz->LoadLevel(0); // GP: Initiated "Level_0.txt"
+    //gameplay_tloz->LoadLevel(0); // GP: Initiated "Level_0.txt"
 
     return true;
 }
@@ -73,8 +73,11 @@ void Renderer::Update()
 
 void Renderer::GetGameplayImage()
 {
+    std::cout << "ASCII_img...\n";
     ASCII_img=gameplay_tloz->GetASCIIimg();
+    std::cout << "imgLengX...\n";
     imgLengX = gameplay_tloz->GetImgLX();
+    std::cout << "imgLengY...\n";
     imgLengY = gameplay_tloz->GetImgLY();
 }
 

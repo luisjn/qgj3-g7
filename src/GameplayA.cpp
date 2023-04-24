@@ -13,6 +13,15 @@ GameplayA::GameplayA()
 #ifdef DEBUG_MODE
     std::cout << "Gameplay Start...\n";
 #endif
+    gameState = GAMEPLAY_STATE_INTIAL;
+    LoadLevel(0);
+/*
+    imgASCII = new char*[1];
+    imgASCII[0] = new char[1];
+    imgASCII[0][0] = '0';
+    imgLengX =1;
+    imgLengY =1;
+*/
 }
 
 GameplayA::~GameplayA()
@@ -33,6 +42,54 @@ void GameplayA::GetSoundEngine(Sound* SoundEngine)
 
 void GameplayA::Run()
 {
+    switch(gameState){
+        case GAMEPLAY_STATE_INTIAL:
+            GameplayInitial();
+            break;
+        case GAMEPLAY_STATE_PRESENTATION:
+            GameplayOnPresentation();
+            break;
+        case GAMEPLAY_STATE_MAIN_MENU:
+            GameplayOnMainMenu();
+            break;
+        case GAMEPLAY_STATE_ON_GAME:
+            GameplayOnRun();
+            break;
+        case GAMEPLAY_STATE_PAUSE:
+            GameplayOnPause();
+            break;
+        case GAMEPLAY_STATE_END_GAME:
+            GameplayOnEnd();
+            break;
+        }
+}
+
+void GameplayA::GameplayInitial()
+{
+    std::cout << "gameState: "<< gameState << "\n";
+    gameState = GAMEPLAY_STATE_PRESENTATION; // HARDCODE JUMP TO NEXT STATE...
+}
+
+
+void GameplayA::GameplayOnPresentation()
+{
+    std::cout << "gameState: "<< gameState << "\n";
+    gameState = GAMEPLAY_STATE_MAIN_MENU; // HARDCODE JUMP TO NEXT STATE...
+}
+
+void GameplayA::GameplayOnMainMenu()
+{
+    int sdfs;
+    std::cout << "gameState: "<< gameState << "\n";
+    std::cout << "\nInt pause...\n";
+    std::cin >> sdfs;
+    //LoadLevel(0);
+    gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP BACK TO GAME...
+    
+}
+
+void GameplayA::GameplayOnRun()
+{
     int S_x = mSpaceship->Position.x;
     int S_y = mSpaceship->Position.y;
 
@@ -45,7 +102,18 @@ void GameplayA::Run()
             //str::strcpy(&imgASCII[S_x][S_y],&mSpaceship->Draw(),1);
         }
     }
-    
+}
+
+void GameplayA::GameplayOnPause()
+{
+    std::cout << "gameState: "<< gameState << "\n";
+    gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP BACK TO GAME...
+}
+
+void GameplayA::GameplayOnEnd()
+{
+    std::cout << "gameState: "<< gameState << "\n";
+    gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP BACK TO GAME...
 }
 
 void GameplayA::LoadLevel(int lID)
