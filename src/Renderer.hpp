@@ -1,24 +1,35 @@
 #pragma once
 #include <windows.h>
 // #include <string>
-
-#include "Spaceship.hpp"
+#include "Sound.hpp" // SE: Add sound engine library
+#include "GameplayA.hpp" // LF: Add file loadding library
+#include <string> // LF: To auto-generate names
 
 class Renderer
 {
 public:
-    bool Initialize();
-    void Shutdown();
-    void Input();
-    void Clear();
-    void Render();
-
+    bool Initialize(bool* mRunn);
+    void Update();
+    Renderer();
+    ~Renderer();
 private:
+    int consoleQtyCols, consoleQtyRows; // To get console max text
+    void GetConsoleMax(); // To get console max text
+    bool* mRunning;
     HANDLE mWindow = nullptr;
     COORD mCursorPosition;
 
-    Spaceship mSpaceship;
+    char** ASCII_img; // To print an car array
+    int imgLengX , imgLengY;
 
     void GoToXY(int x, int y);
     // void PrintASCII(string filename);
+
+    Sound* sound_engine;  // SE: In memory object to sound engine interact
+    GameplayA* gameplay_tloz; // GP: In memory object to interact
+    void GetGameplayImage();
+    void ProcessInput();
+    void Clear();
+    void Render();
+    void Shutdown();
 };

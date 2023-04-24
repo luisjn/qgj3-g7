@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Renderer.hpp"
+#include "Settings.h" // General Game DEFINEs
 
 class Engine
 {
@@ -12,10 +13,6 @@ public:
 private:
     bool mRunning = false;
     float mFrameTime = 33; // 40=25fps 33=30fps, 16=60fps
-
-    Renderer mRenderer;
-
-    void ProcessInput();
+    Renderer* mRenderer; // Renderer (principal function for View-Presentator Model)
     float Update();
-    void GenerateOutputs();
 };

@@ -2,32 +2,24 @@
 
 bool Engine::Initialize()
 {
-    mRenderer.Initialize();
-
-    return true;
+    mRenderer = new Renderer();
+    return mRenderer->Initialize(&mRunning);
 }
 
 void Engine::Shutdown()
 {
-    mRenderer.Shutdown();
+    delete mRenderer;
 }
 
 void Engine::Run()
 {
     float dt = 0;
     mRunning = true;
-
     while (mRunning)
     {
-        ProcessInput();
+        mRenderer->Update();
         dt = Update();
-        GenerateOutputs();
     }
-}
-
-void Engine::ProcessInput()
-{
-    mRenderer.Input();
 }
 
 // This code implements a “busy wait” (empty while loop) until at least 16ms have passed, ensuring that the maximum FPS will be 60
@@ -78,11 +70,4 @@ float Engine::Update()
      */
 
     return deltaTime;
-}
-
-void Engine::GenerateOutputs()
-{
-    mRenderer.Clear();
-    mRenderer.Render();
-    // mRenderer.Present();
 }

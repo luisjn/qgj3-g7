@@ -2,16 +2,19 @@
 
 int main()
 {
-    Engine e;
+    Engine* e = new Engine();
 
-    bool initSucceeded = e.Initialize();
+    bool initSucceeded = e->Initialize();
 
     if (initSucceeded)
     {
-        e.Run();
+        e->Run();
     }
 
-    e.Shutdown();
+    e->Shutdown();
+
+    delete e;
 
     return 0;
 }
+
