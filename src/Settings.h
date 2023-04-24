@@ -67,3 +67,5 @@
 #define GAMEPLAY_MOVE_D 11
 #define GAMEPLAY_MOVE_W 12
 #define GAMEPLAY_MOVE_S 13
+// B) Interrupt input type:
+#define GAMEPLAY_INTERRUMP_F1 10

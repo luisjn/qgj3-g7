@@ -159,6 +159,7 @@ void Renderer::ProcessInput()
     }
     if (GetKeyState(VK_F9) & 0x8000)
     {
+        std::cout << consoleQtyCols << " x " << consoleQtyRows << "\n";
     }
     if (GetKeyState(VK_F10) & 0x8000)
     {
