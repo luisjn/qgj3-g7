@@ -66,26 +66,29 @@ void GameplayA::Run()
 
 void GameplayA::GameplayInitial()
 {
-    std::cout << "gameState: "<< gameState << "\n";
+//    std::cout << "gameState: "<< gameState << "\n";
     gameState = GAMEPLAY_STATE_PRESENTATION; // HARDCODE JUMP TO NEXT STATE...
 }
 
 
 void GameplayA::GameplayOnPresentation()
 {
-    std::cout << "gameState: "<< gameState << "\n";
+//    std::cout << "gameState: "<< gameState << "\n";
     gameState = GAMEPLAY_STATE_MAIN_MENU; // HARDCODE JUMP TO NEXT STATE...
 }
 
 void GameplayA::GameplayOnMainMenu()
 {
-    int sdfs;
+    if(mainMenu==NULL){
+        std::cout << "creando MainMenu... "<< gameState << "\n";
+        mainMenu = new MenuBasic();
+    }
     std::cout << "gameState: "<< gameState << "\n";
-    std::cout << "\nInt pause...\n";
-    std::cin >> sdfs;
-    //LoadLevel(0);
-    gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP BACK TO GAME...
-    
+    mainMenu->Run();
+    if(mainMenu->EndMenu()){
+        delete mainMenu;
+        gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP BACK TO GAME...
+    }
 }
 
 void GameplayA::GameplayOnRun()
@@ -106,13 +109,13 @@ void GameplayA::GameplayOnRun()
 
 void GameplayA::GameplayOnPause()
 {
-    std::cout << "gameState: "<< gameState << "\n";
+//    std::cout << "gameState: "<< gameState << "\n";
     gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP BACK TO GAME...
 }
 
 void GameplayA::GameplayOnEnd()
 {
-    std::cout << "gameState: "<< gameState << "\n";
+//    std::cout << "gameState: "<< gameState << "\n";
     gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP BACK TO GAME...
 }
 

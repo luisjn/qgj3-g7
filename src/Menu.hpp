@@ -10,6 +10,7 @@ class MenuBasic
 private:
     char** imgASCII;
 public:
+    bool EndMenu();
     void Run();
     char** GetImgASCII();
     MenuBasic();

@@ -73,11 +73,8 @@ void Renderer::Update()
 
 void Renderer::GetGameplayImage()
 {
-    std::cout << "ASCII_img...\n";
     ASCII_img=gameplay_tloz->GetASCIIimg();
-    std::cout << "imgLengX...\n";
     imgLengX = gameplay_tloz->GetImgLX();
-    std::cout << "imgLengY...\n";
     imgLengY = gameplay_tloz->GetImgLY();
 }
 
