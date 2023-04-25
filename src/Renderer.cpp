@@ -67,7 +67,7 @@ void Renderer::Update()
 {
     ProcessInput();
     game->Update();
-    // GetGameplayImage();
+    GetGameplayImage();
     Render();
 }
 
@@ -105,8 +105,8 @@ void Renderer::ProcessInput()
     // SPACE:
     if (GetKeyState(VK_SPACE) & 0x8000)
     {
+        sound_engine->PlaySnd(0); // SE: Sound test: Shot!
         game->InputMove(GAMEPLAY_SHOOT);
-        // sound_engine->PlaySnd(0); // SE: Sound test: Shot!
     }
 
     // WASD:
