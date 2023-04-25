@@ -10,7 +10,7 @@
 
 Renderer::Renderer()
 {
-    //Initialize(); // Call on parallel
+    // Initialize(); // Call on parallel
 }
 
 Renderer::~Renderer()
@@ -18,9 +18,9 @@ Renderer::~Renderer()
     Shutdown();
 }
 
-bool Renderer::Initialize(bool* mRunn)
+bool Renderer::Initialize(bool *mRunn)
 {
-    mRunning=mRunn;
+    mRunning = mRunn;
 
     mWindow = GetStdHandle(STD_OUTPUT_HANDLE);
     if (mWindow == nullptr)
@@ -44,9 +44,9 @@ bool Renderer::Initialize(bool* mRunn)
 #ifndef SOUND_ENGINE_AUTOSTART
     sound_engine = new Sound(false); // SE: Initied Sound Engine (default: FALSE)
 #endif
-    gameplay_tloz = new GameplayA(); // GP: Initiated gameplay
-    gameplay_tloz->GetSoundEngine(sound_engine); // GP: Pass the sound engine direction
-    gameplay_tloz->LoadLevel(0); // GP: Initiated "Level_0.txt"
+    game = new Game(); // GP: Initiated gameplay
+    // game->GetSoundEngine(sound_engine); // GP: Pass the sound engine direction
+    // game->LoadLevel(0); // GP: Initiated "Level_0.txt"
 
     return true;
 }
@@ -54,28 +54,28 @@ bool Renderer::Initialize(bool* mRunn)
 void Renderer::Shutdown()
 {
     delete sound_engine; // SE: Delete Sound Engine
-    delete gameplay_tloz; // GP: Delete gameplay
+    delete game;         // GP: Delete gameplay
 
     if (mWindow != nullptr)
     {
         mWindow = nullptr;
     }
-    exit(0);
+    // exit(0);
 }
 
 void Renderer::Update()
 {
-        ProcessInput();
-        gameplay_tloz->Run();
-        GetGameplayImage();
-        Render();
+    ProcessInput();
+    game->Update();
+    // GetGameplayImage();
+    Render();
 }
 
 void Renderer::GetGameplayImage()
 {
-    ASCII_img=gameplay_tloz->GetASCIIimg();
-    imgLengX = gameplay_tloz->GetImgLX();
-    imgLengY = gameplay_tloz->GetImgLY();
+    ASCII_img = game->GetASCIIimg();
+    imgLengX = game->GetImgLX();
+    imgLengY = game->GetImgLY();
 }
 
 void Renderer::ProcessInput()
@@ -83,43 +83,52 @@ void Renderer::ProcessInput()
     // ARROWS:
     if (GetKeyState(VK_RIGHT) & 0x8000)
     {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_RIGHT);
+        game->InputMove(GAMEPLAY_MOVE_RIGHT);
+        // sound_engine->PlaySnd(3);
     }
     if (GetKeyState(VK_LEFT) & 0x8000)
     {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_LEFT);
+        game->InputMove(GAMEPLAY_MOVE_LEFT);
+        // sound_engine->PlaySnd(3);
     }
     if (GetKeyState(VK_UP) & 0x8000)
     {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_UP);
+        game->InputMove(GAMEPLAY_MOVE_UP);
+        // sound_engine->PlaySnd(3);
     }
     if (GetKeyState(VK_DOWN) & 0x8000)
     {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_DOWN);
-    }
-
-    // WASD:
-    if (GetKeyState('A') & 0x8000)
-    {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_A);
-    }
-    if (GetKeyState('D') & 0x8000)
-    {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_D);
-    }
-    if (GetKeyState('W') & 0x8000)
-    {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_W);
-    }
-    if (GetKeyState('S') & 0x8000)
-    {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_S);
+        game->InputMove(GAMEPLAY_MOVE_DOWN);
+        // sound_engine->PlaySnd(3);
     }
 
     // SPACE:
     if (GetKeyState(VK_SPACE) & 0x8000)
     {
-        sound_engine->PlaySnd(0); // SE: Sound test: Shot!
+        game->InputMove(GAMEPLAY_SHOOT);
+        // sound_engine->PlaySnd(0); // SE: Sound test: Shot!
+    }
+
+    // WASD:
+    if (GetKeyState('A') & 0x8000)
+    {
+        game->InputMove(GAMEPLAY_MOVE_A);
+        sound_engine->PlaySnd(2);
+    }
+    if (GetKeyState('D') & 0x8000)
+    {
+        game->InputMove(GAMEPLAY_MOVE_D);
+        sound_engine->PlaySnd(2);
+    }
+    if (GetKeyState('W') & 0x8000)
+    {
+        game->InputMove(GAMEPLAY_MOVE_W);
+        sound_engine->PlaySnd(2);
+    }
+    if (GetKeyState('S') & 0x8000)
+    {
+        game->InputMove(GAMEPLAY_MOVE_S);
+        sound_engine->PlaySnd(2);
     }
 
     // ESCAPE:
@@ -162,22 +171,21 @@ void Renderer::ProcessInput()
     }
     if (GetKeyState(VK_F10) & 0x8000)
     {
-        gameplay_tloz->InputMove(50);
+        game->InputMove(50);
     }
-    //if (GetKeyState(VK_F11) & 0x8000) // NOT to use F11 (full screen)!!!
+    // if (GetKeyState(VK_F11) & 0x8000) // NOT to use F11 (full screen)!!!
     //{
-    //}
+    // }
     if (GetKeyState(VK_F12) & 0x8000)
     {
-        gameplay_tloz->InputMove(51);
+        game->InputMove(51);
     }
-    
 }
 
 void Renderer::GetConsoleMax() // To get console max text
 {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
-    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    GetConsoleScreenBufferInfo(mWindow, &csbi);
     consoleQtyCols = csbi.srWindow.Right - csbi.srWindow.Left + 1;
     consoleQtyRows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 }
@@ -190,35 +198,25 @@ void Renderer::Clear()
 void Renderer::Render()
 {
     Clear();
-    GetConsoleMax(); // To get console max text
+    // GetConsoleMax(); // To get console max text
+    // std::string map = game->CurrentMap();
+    // GoToXY(0, 0);
+    // std::cout << map;
 
-    std::string stringText = ""; 
-	for (int x = 0; x < imgLengX; x++) { 
-	    for (int y = 0; y < imgLengY; y++) { 
-		    stringText = stringText + ASCII_img[x][y]; 
-	    }
-        stringText = stringText + "\n";
+    /*
+     * PLAYER
+     */
+    GoToXY(game->PlayerPositionX(), game->PlayerPositionY());
+    std::cout << game->Player();
+
+    /*
+     * PROYECTILES
+     */
+    for (game->itProjectiles = game->projectiles.begin(); game->itProjectiles != game->projectiles.end(); game->itProjectiles++)
+    {
+        GoToXY((*game->itProjectiles)->PositionX(), (*game->itProjectiles)->PositionY());
+        std::cout << (*game->itProjectiles)->Draw();
     }
-    std::cout << stringText;
-
-/*
-    char space[] = R"(.         _  .          .          .    +     .          .          .      .
-        .(_)          .            .            .            .       :
-        .   .      .    .     .     .    .      .   .      . .  .  -+-        .
-          .           .   .        .           .          /         :  .
-    . .        .  .      /.   .      .    .     .     .  / .      . ' .
-        .  +       .    /     .          .          .   /      .
-       .            .  /         .            .        *   .         .     .
-      .   .      .    *     .     .    .      .   .       .  .
-          .           .           .           .           .         +  .
-  . .        .  .       .   .      .    .     .     .    .      .   .
-      .   .      .    *     .     .    .      .   .       .  .
-          .           .           .           .           .         +  .
-  . .        .  .       .   .      .    .     .     .    .      .   .)";
-    std::cout << space;
-*/
-    //GoToXY(mSpaceship.Position.x, mSpaceship.Position.y);
-    //std::cout << mSpaceship.Draw();
 }
 
 void Renderer::GoToXY(int x, int y)

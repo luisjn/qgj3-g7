@@ -54,16 +54,16 @@ float Engine::Update()
      */
 
     // Ensure delta time is never negative.
-    // if (deltaTime < 0.0f)
-    // {
-    //     deltaTime = 0.0f;
-    // }
+    if (deltaTime < 0.0f)
+    {
+        deltaTime = 0.0f;
+    }
 
     // Limit the time delta to 0.05 seconds (about 20FPS).
-    // if (deltaTime > 0.05f)
-    // {
-    //     deltaTime = 0.05f;
-    // }
+    if (deltaTime > 0.05f)
+    {
+        deltaTime = 0.05f;
+    }
 
     /*
      * For debugging

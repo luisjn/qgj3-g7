@@ -13,6 +13,6 @@ public:
 private:
     bool mRunning = false;
     float mFrameTime = 33; // 40=25fps 33=30fps, 16=60fps
-    Renderer* mRenderer; // Renderer (principal function for View-Presentator Model)
+    Renderer *mRenderer;   // Renderer (principal function for View-Presentator Model)
     float Update();
 };

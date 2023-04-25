@@ -10,11 +10,13 @@ public:
     void Up();
     void Down();
     char Draw();
-    char mSpaceship = 30;
+    char Direction();
 
     Vector2 Position;
 
 private:
+    char mSpaceship = 30;
+    char mDirection = 'u';
     char mSpaceshipR = 16;
     char mSpaceshipL = 17;
     char mSpaceshipU = 30;
