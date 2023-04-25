@@ -144,7 +144,6 @@ void MapASCII::LoadMap()
 #ifdef DEBUG_MODE
                         std::cout << charRead;
 #endif
-                        
                         std::strncpy(&map_ascii[i][j], &charRead, 1);
                         j++;
                     }
@@ -221,17 +220,20 @@ char MapASCII::GetChar(int x, int y)
     return toReturn;
 }
 
+/*
 bool MapASCII::ChangeChar(int x, int y, char newASCII)
 {
     bool result=false;
     if ((x>=0) && (x<longHorizontal)){
         if ((y>=0) && (y<longVertical)){
-            map_ascii[x][y]=newASCII;
+//            map_ascii[x][y]=newASCII;
+            std::strncpy(&map_ascii[x][y], &newASCII, 1);
             result=true;
         }
     }
     return result;
 }
+*/
 
 // -------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------------

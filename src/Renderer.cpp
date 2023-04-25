@@ -83,48 +83,50 @@ void Renderer::ProcessInput()
     // ARROWS:
     if (GetKeyState(VK_RIGHT) & 0x8000)
     {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_RIGHT);
+        gameplay_tloz->Input(GAMEPLAY_MOVE_RIGHT);
     }
     if (GetKeyState(VK_LEFT) & 0x8000)
     {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_LEFT);
+        gameplay_tloz->Input(GAMEPLAY_MOVE_LEFT);
     }
     if (GetKeyState(VK_UP) & 0x8000)
     {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_UP);
+        gameplay_tloz->Input(GAMEPLAY_MOVE_UP);
     }
     if (GetKeyState(VK_DOWN) & 0x8000)
     {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_DOWN);
+        gameplay_tloz->Input(GAMEPLAY_MOVE_DOWN);
     }
 
     // WASD:
     if (GetKeyState('A') & 0x8000)
     {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_A);
+        gameplay_tloz->Input(GAMEPLAY_MOVE_A);
     }
     if (GetKeyState('D') & 0x8000)
     {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_D);
+        gameplay_tloz->Input(GAMEPLAY_MOVE_D);
     }
     if (GetKeyState('W') & 0x8000)
     {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_W);
+        gameplay_tloz->Input(GAMEPLAY_MOVE_W);
     }
     if (GetKeyState('S') & 0x8000)
     {
-        gameplay_tloz->InputMove(GAMEPLAY_MOVE_S);
+        gameplay_tloz->Input(GAMEPLAY_MOVE_S);
     }
 
     // SPACE:
     if (GetKeyState(VK_SPACE) & 0x8000)
     {
+        gameplay_tloz->Input(GAMEPLAY_SHOT);
         sound_engine->PlaySnd(0); // SE: Sound test: Shot!
     }
 
     // ESCAPE:
     if (GetKeyState(VK_ESCAPE) & 0x8000)
     {
+        gameplay_tloz->Input(GAMEPLAY_SHOT);
         *mRunning = false; // Close the program (be carefull and change this behavior to adapt menues)
     }
 
@@ -163,14 +165,14 @@ void Renderer::ProcessInput()
     }
     if (GetKeyState(VK_F10) & 0x8000)
     {
-        gameplay_tloz->InputMove(50);
+        gameplay_tloz->Input(GAMEPLAY_JUMPLEVEL_00);
     }
     //if (GetKeyState(VK_F11) & 0x8000) // NOT to use F11 (full screen)!!!
     //{
     //}
     if (GetKeyState(VK_F12) & 0x8000)
     {
-        gameplay_tloz->InputMove(51);
+        gameplay_tloz->Input(GAMEPLAY_JUMPLEVEL_01);
     }
     
 }

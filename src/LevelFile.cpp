@@ -149,7 +149,9 @@ void LevelFile::LoadAllMaps()
 
 char** LevelFile::GetMapASCII()
 {
+#ifdef DEBUG_MODE
     std::cout << "ActiveMap = (" << activeMap_x<<";" <<activeMap_y<<")\n";
+#endif
     return maps_ASCII[activeMap_x][activeMap_y].GetMapASCII();
 }
 

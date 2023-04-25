@@ -21,7 +21,7 @@ private:
 public:
     char** GetMapASCII();
     char GetChar(int x, int y);
-    bool ChangeChar(int x, int y, char newASCII);
+    //bool ChangeChar(int x, int y, char newASCII);
     void Draw();
     void LoadMap();
     void WriteMapToFile();

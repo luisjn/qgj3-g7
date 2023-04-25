@@ -9,6 +9,7 @@
 #include "Sound.hpp" // SE: Add sound engine library
 #include "Spaceship.hpp" // Add player charactable to Gameplay
 #include "Menu.hpp" // Add menues to Gameplay
+#include "ImageASCII.hpp" // New mod for char array use
 
 // Class declare: ----------------------------------------------------------------------------------------------------
 
@@ -22,18 +23,22 @@ private:
     char** imgASCII;
     int actualLevel, imgLengX, imgLengY;
     int gameState; // State for game
+
+    //ImageASCII* image;
+
     void GameplayInitial();
     void GameplayOnPresentation();
     void GameplayOnMainMenu();
     void GameplayOnRun();
     void GameplayOnPause();
     void GameplayOnEnd();
+    void MergeImageASCII(std::string imgASCIItoMerge, int x0, int y0, int dx, int dy);
 public:
     void GetSoundEngine(Sound* SoundEngine); // SE: To get the Sound Engine pass by Game Engine
     void LoadLevel(int lID);
     void UnloadLevel();
     void Run();
-    void InputMove(int side_ID);
+    void Input(int side_ID);
     int GetImgLX();
     int GetImgLY();
     char** GetASCIIimg();

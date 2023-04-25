@@ -39,14 +39,12 @@ void Sound::SetActivatedSound(bool newSoundState)
 #ifdef DEBUG_MODE
 	std::cout << "Change Sound State to:: " << newSoundState << "\n";
 #endif
-
+	soundActivated = newSoundState;
 #ifdef SOUND_ENGINE_WINDOWS
 	if(!newSoundState){
 		StopSnd();
 	}
 #endif
-
-	soundActivated = newSoundState;
 }
 
 bool Sound::ChangeActivatedSound()
