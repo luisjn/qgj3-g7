@@ -28,7 +28,8 @@ private:
 
     Sound *sound_engine; // SE: In memory object to sound engine interact
     Game *game;          // GP: In memory object to interact
-    void GetGameplayImage();
+    void GetBackgroundImage();
+    void RenderBackground();
     void ProcessInput();
     void Clear();
     void Render();

@@ -67,15 +67,7 @@ void Renderer::Update()
 {
     ProcessInput();
     game->Update();
-    GetGameplayImage();
     Render();
-}
-
-void Renderer::GetGameplayImage()
-{
-    ASCII_img = game->GetASCIIimg();
-    imgLengX = game->GetImgLX();
-    imgLengY = game->GetImgLY();
 }
 
 void Renderer::ProcessInput()
@@ -195,13 +187,38 @@ void Renderer::Clear()
     system("cls");
 }
 
+void Renderer::GetBackgroundImage()
+{
+    ASCII_img = game->GetASCIIimg();
+    imgLengX = game->GetImgLX();
+    imgLengY = game->GetImgLY();
+}
+
+
+void Renderer::RenderBackground()
+{
+    std::string stringText = ""; 
+	for (int x = 0; x < imgLengX; x++) { 
+	    for (int y = 0; y < imgLengY; y++) { 
+		    stringText = stringText + ASCII_img[x][y]; 
+	    }
+        stringText = stringText + "\n";
+    }
+    std::cout << stringText;
+}
+
 void Renderer::Render()
 {
+    /*
+     * CLEAR
+     */
     Clear();
-    // GetConsoleMax(); // To get console max text
-    // std::string map = game->CurrentMap();
-    // GoToXY(0, 0);
-    // std::cout << map;
+
+    /*
+     * MAP / BACKGROUND
+     */
+    GetBackgroundImage();
+    RenderBackground();
 
     /*
      * PLAYER
