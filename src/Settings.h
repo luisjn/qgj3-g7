@@ -4,7 +4,7 @@
 // Define for general propourse:
 // -----------------------------
 // A) Debug Mode activated if this line are activated and no commented ("//"):
-//#define DEBUG_MODE
+// #define DEBUG_MODE
 
 // Define for Credits:
 // -------------------
@@ -24,8 +24,8 @@
 #define SOUND_ENGINE_INCLUDE
 // A) Define ONLY one type of Sound type (add "//" to the other):
 #define SOUND_ENGINE_WINDOWS
-//#define SOUND_ENGINE_SDL2
-// B) Define if Sound start ENABLE by default:
+// #define SOUND_ENGINE_SDL2
+//  B) Define if Sound start ENABLE by default:
 #define SOUND_ENGINE_AUTOSTART
 // C) Files "WAV" locations:
 #define SOUND_HIT_00_PATH "Sounds/Hit_00.wav"
@@ -50,7 +50,7 @@
 // Define for Maps:
 // ----------------
 // A) Files "MAP" locations (TXT files) (non-automatic):
-//#define GAME_MAP_00_PATH "Levels/Map_00.txt"
+// #define GAME_MAP_00_PATH "Levels/Map_00.txt"
 // B) Generates "MAP" files (TXT files) (automatic name):
 #define GAME_MAP_NAME_INITIAL_PATH "Levels/Map_"
 #define GAME_MAP_NAME_SEPARATION "_"
@@ -63,7 +63,13 @@
 #define GAMEPLAY_MOVE_RIGHT 1
 #define GAMEPLAY_MOVE_UP 2
 #define GAMEPLAY_MOVE_DOWN 3
+#define GAMEPLAY_SHOOT 4
 #define GAMEPLAY_MOVE_A 10
 #define GAMEPLAY_MOVE_D 11
 #define GAMEPLAY_MOVE_W 12
 #define GAMEPLAY_MOVE_S 13
+
+// Console
+#define Width 120
+#define Height 30
+#define Limit 3
