@@ -1,0 +1,6 @@
+xxxxxxxxxxxxxx PAUSA x
+x { } jugar          x
+x { } sonido         x
+x { } menu principal x
+x { } salir          x
+xxxxxxxxxxxxxxxxxxxxxx

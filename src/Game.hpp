@@ -27,6 +27,8 @@ private:
 
     // Game State
     int gameState;
+    bool isRunning;
+
     void GameplayInitial();
     void GameplayOnPresentation();
     void GameplayOnMainMenu();
@@ -63,6 +65,7 @@ public:
     int re = 6;
 
     // void GetSoundEngine(Sound *SoundEngine); // SE: To get the Sound Engine pass by Game Engine
+    bool IsRunning();
     void LoadLevel(int lID);
     void UnloadLevel();
     void Update();

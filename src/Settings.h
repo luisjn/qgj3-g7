@@ -72,7 +72,8 @@
 //    Move Shotd:
 #define GAMEPLAY_SHOOT 20
 //    Move Manu:
-#define GAMEPLAY_EXIT 30
+#define GAMEPLAY_INTRO 30
+#define GAMEPLAY_EXIT 31
 //    Move SPECIALs:
 #define GAMEPLAY_JUMPMAINMENU 40
 #define GAMEPLAY_JUMPLEVEL_00 50
@@ -89,7 +90,7 @@
 
 // Console
 #define Width 120
-#define Height 30
+#define Height 29
 #define Limit 3
 
 // Define for Menues:
@@ -99,6 +100,21 @@
 #define MENU_PAUSEMENU_CODE 1
 
 // Define for Enemies:
-// --------------------
-// A) radiousImpact:
 #define ENEMY_RADIOUS_IMPACT 0.25f
+
+// B) Files of menues:
+#define MENU_MAINMENU_FILE "UI/MainMenu_00.txt"
+#define MENU_PAUSEMENU_FILE "UI/PauseMenu_00.txt"
+// C) Option for menues:
+#define MENU_CHARACTER_TO_SELECT "X"
+//    Commond to various menues:
+#define MENU_ACTION_NULL 0
+#define MENU_ACTION_CONTINUE_GAME 1
+#define MENU_ACTION_SWITCH_SOUND 2
+#define MENU_ACTION_EXIT_GAME -1
+//    Only for Main Menu:
+#define MENU_ACTION_GET_HELP 3
+#define MENU_ACTION_LOAD_SAVE 4
+#define MENU_ACTION_GO_PRESENTATION 6
+//    Only for Pause Menu:
+#define MENU_ACTION_BACK_MAINMENU 5

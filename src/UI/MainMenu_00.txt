@@ -1,0 +1,29 @@
+x   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   x
+                                                                                                                        
+x                                            XX  XX   OOO  DDD  UU UU  SSS                                             x
+x                                            XX  XX  OOOOO DDDD UU UU SS                                               x
+x                                             XXXX   OO OO DD D UU UU SSSS                                             x
+x                                             XXXX   OO OO DD D UU UU SSSS                                             x
+x                                            XX  XX  OOOOO DDDD UUUUU   SS                                             x
+x                                            XX  XX   OOO  DDD   UUU  SSS                                              x
+x                                                                                                                      x
+x                                                ---A space journey---                                                 x
+x                                                                                                                      x
+x                                                                                                                      x
+x                                                                                                                      x
+x                                                                                                                      x
+x                                                                                                                      x
+x                                                                                                                      x
+x          { } jugar                                                                                                   x
+x                                                                                                                      x
+x          { } introduccion                                                                                            x
+x                                                                                                                      x
+x          { } sonido                                                                                                  x
+x                                                                                                                      x
+x          { } ayuda                                                                                                   x
+x                                                                                                                      x
+x          { } cargar                                                                                                  x
+x                                                                                                                      x
+x          { } salir                                                                                                   x
+                                                                                                                        
+x   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   x
