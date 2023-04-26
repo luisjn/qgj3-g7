@@ -46,11 +46,19 @@ void Enemy::FollowPlayer(Vector2 playerPos)
     }
 }
 
+float Enemy::DistanceVector2(Vector2 v1, Vector2 v2)
+{
+    float d = sqrt(pow((v1.x - v2.x), 2) + pow((v1.y - v2.y), 2));
+    return d;
+}
+
 bool Enemy::IsColliding(Vector2 other)
 {
+    float distance = DistanceVector2(other, Position); // distance circle
     if(
-        (other.x-radiousImpact<=Position.x)&&(other.x+radiousImpact>=Position.y)&&
-        (other.y-radiousImpact<=Position.y)&&(other.y+radiousImpact>=Position.y)
+        distance<=radiousImpact // distance circle - Best for Enemies
+        //(other.x-radiousImpact<=Position.x)&&(other.x+radiousImpact>=Position.y)&& // linear distance - Best for shoots
+        //(other.y-radiousImpact<=Position.y)&&(other.y+radiousImpact>=Position.y) // linear distance - Best for shoots
         ){
         return true;
     }

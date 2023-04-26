@@ -13,7 +13,7 @@ public:
     void FollowPlayer(Vector2 playerPos);
     bool IsColliding(Vector2 other);
     float radiousImpact;
-
+    float DistanceVector2(Vector2 v1, Vector2 v2);
     Vector2 Position;
 
 private:
