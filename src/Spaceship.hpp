@@ -13,10 +13,11 @@ public:
     char Direction();
 
     Vector2 Position;
+    int mHp = 100;
 
 private:
     char mSpaceship = 30;
-    char mDirection = 'u';
+    char mDirection = 'r';
     char mSpaceshipR = 16;
     char mSpaceshipL = 17;
     char mSpaceshipU = 30;

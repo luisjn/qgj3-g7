@@ -3,8 +3,8 @@
 
 Projectile::Projectile(int px, int py, char d)
 {
-    Position.x = px;
-    Position.y = py;
+    mPosition.x = px;
+    mPosition.y = py;
     mDirection = d;
 }
 
@@ -12,19 +12,19 @@ void Projectile::Update()
 {
     if (mDirection == 'u')
     {
-        Position.y -= spdy;
+        mPosition.y -= spdy;
     }
     else if (mDirection == 'd')
     {
-        Position.y += spdy;
+        mPosition.y += spdy;
     }
     else if (mDirection == 'r')
     {
-        Position.x += spdx;
+        mPosition.x += spdx;
     }
     else if (mDirection == 'l')
     {
-        Position.x -= spdx;
+        mPosition.x -= spdx;
     }
 }
 
@@ -35,17 +35,22 @@ char Projectile::Draw()
 
 bool Projectile::IsOut()
 {
-    if (Position.x < Limit || Position.x > Width - Limit || Position.y < Limit || Position.y > Height - Limit)
+    if (mPosition.x < Limit || mPosition.x > Width - Limit || mPosition.y < Limit || mPosition.y > Height - Limit)
         return true;
     return false;
 }
 
 float Projectile::PositionX()
 {
-    return Position.x;
+    return mPosition.x;
 }
 
 float Projectile::PositionY()
 {
-    return Position.y;
+    return mPosition.y;
+}
+
+Vector2 Projectile::Position()
+{
+    return mPosition;
 }

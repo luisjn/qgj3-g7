@@ -98,6 +98,10 @@
 // A) Menues available:
 #define MENU_MAINMENU_CODE 0
 #define MENU_PAUSEMENU_CODE 1
+
+// Define for Enemies:
+#define ENEMY_RADIOUS_IMPACT 0.25f
+
 // B) Files of menues:
 #define MENU_MAINMENU_FILE "UI/MainMenu_00.txt"
 #define MENU_PAUSEMENU_FILE "UI/PauseMenu_00.txt"
@@ -114,4 +118,3 @@
 #define MENU_ACTION_GO_PRESENTATION 6
 //    Only for Pause Menu:
 #define MENU_ACTION_BACK_MAINMENU 5
-

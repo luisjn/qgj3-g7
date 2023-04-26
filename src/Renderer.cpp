@@ -203,14 +203,15 @@ void Renderer::GetBackgroundImage()
     imgLengY = game->GetImgLY();
 }
 
-
 void Renderer::RenderBackground()
 {
-    std::string stringText = ""; 
-	for (int x = 0; x < imgLengX; x++) { 
-	    for (int y = 0; y < imgLengY; y++) { 
-		    stringText = stringText + ASCII_img[x][y]; 
-	    }
+    std::string stringText = "";
+    for (int x = 0; x < imgLengX; x++)
+    {
+        for (int y = 0; y < imgLengY; y++)
+        {
+            stringText = stringText + ASCII_img[x][y];
+        }
         stringText = stringText + "\n";
     }
     std::cout << stringText;
@@ -223,47 +224,66 @@ void Renderer::Render()
      */
     Clear();
 
-    if(game->renderBkg){
+    if (game->renderBkg)
+    {
         /*
-        * MAP / BACKGROUND
-        */
+         * MAP / BACKGROUND
+         */
         GetBackgroundImage();
         RenderBackground();
+        GoToXY(1, 1);
+        std::cout << game->PlayerHP();
     }
-    if(game->renderShip){
+    if (game->renderShip)
+    {
         /*
-        * PLAYER
-        */
+         * PLAYER
+         */
         GoToXY(game->PlayerPositionX(), game->PlayerPositionY());
         std::cout << game->Player();
     }
-    if(game->renderEnemy){
-    }
-    if(game->renderShoots){
+    if (game->renderEnemy)
+    {
         /*
-        * PROYECTILES
-        */
+         * Enemies
+         */
+        for (game->itEnemies = game->enemies.begin(); game->itEnemies != game->enemies.end(); game->itEnemies++)
+        {
+            GoToXY((*game->itEnemies)->PositionX(), (*game->itEnemies)->PositionY());
+            std::cout << (*game->itEnemies)->Draw();
+        }
+    }
+    if (game->renderShoots)
+    {
+        /*
+         * PROYECTILES
+         */
         for (game->itProjectiles = game->projectiles.begin(); game->itProjectiles != game->projectiles.end(); game->itProjectiles++)
         {
             GoToXY((*game->itProjectiles)->PositionX(), (*game->itProjectiles)->PositionY());
             std::cout << (*game->itProjectiles)->Draw();
         }
     }
-    if(game->renderMenu){
+    if (game->renderMenu)
+    {
         /*
-        * MENU
-        */
+         * MENU
+         */
         for (game->itMenues = game->menues.begin(); game->itMenues != game->menues.end(); game->itMenues++)
         {
-            if(((*game->itMenues)->GetDX() < Width)&&((*game->itMenues)->GetDY() < (Height))){
+            if (((*game->itMenues)->GetDX() < Width) && ((*game->itMenues)->GetDY() < (Height)))
+            {
                 MergeImageASCII((*game->itMenues)->Draw(), (*game->itMenues)->GetX0(), (*game->itMenues)->GetY0(), (*game->itMenues)->GetDX(), (*game->itMenues)->GetDY());
-            }else{
-                GoToXY((*game->itMenues)->GetX0(),(*game->itMenues)->GetY0());
+            }
+            else
+            {
+                GoToXY((*game->itMenues)->GetX0(), (*game->itMenues)->GetY0());
                 std::cout << (*game->itMenues)->Draw();
             }
         }
     }
-    if(game->renderCinematic){
+    if (game->renderCinematic)
+    {
     }
 }
 
@@ -277,15 +297,16 @@ void Renderer::GoToXY(int x, int y)
 void Renderer::MergeImageASCII(std::string imgASCIItoMerge, int x0, int y0, int dx, int dy)
 {
     int calc;
-    for(int y=0;y<dy;y++){
-        for(int x=0;x<dx;x++){
-            calc=(y*dx)+y+x;
-            GoToXY(x+x0,y+y0);
+    for (int y = 0; y < dy; y++)
+    {
+        for (int x = 0; x < dx; x++)
+        {
+            calc = (y * dx) + y + x;
+            GoToXY(x + x0, y + y0);
             std::cout << imgASCIItoMerge[calc];
         }
     }
 }
-
 
 /*
 void GameplayA::MergeImageASCII(std::string imgASCIItoMerge, int x0, int y0, int dx, int dy)
@@ -299,23 +320,3 @@ void GameplayA::MergeImageASCII(std::string imgASCIItoMerge, int x0, int y0, int
     }
 }
 */
-
-// void Renderer::PrintASCII()
-// {
-//     string line = "";
-//     ifstream inFile;
-//     inFile.open("bomb_art. txt");
-//     if (inFile.is_open())
-//     {
-//         while (getline(inFile, line))
-//         {
-//             cout <‹ line <‹ end;
-//         }
-//     }
-//     else
-//     {
-//         cout <‹ "File failed to load. " <‹ end1;
-//         cout <‹ "No nuke displayed." < endl;
-//     }
-//     infile.close();
-// }
