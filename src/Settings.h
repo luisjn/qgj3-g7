@@ -127,9 +127,11 @@
 #define CINEMATIC_ENDGOOD_FILE "Cinematic/EndGood_00.txt"
 #define CINEMATIC_ENDFAIL_FILE "Cinematic/EndFail_00.txt"
 #define CINEMATIC_CREDITS_FILE "Cinematic/Credits_00.txt"
+#define CINEMATIC_HELP_FILE "Cinematic/Help_00.txt"
 // B) Index of cinematics:
 #define CINEMATIC_INITIAL 0
 #define CINEMATIC_END 1
 #define CINEMATIC_ENDGOOD 2
 #define CINEMATIC_ENDFAIL 3
 #define CINEMATIC_CREDITS 4
+#define CINEMATIC_HELP 5

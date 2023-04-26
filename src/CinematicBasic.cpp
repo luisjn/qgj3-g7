@@ -191,7 +191,7 @@ void CinematicBasic::Input(int side_ID)
         SendEscape();
         break;
     case GAMEPLAY_SHOOT:
-        //SendOK();
+        SendEscape();
         break;
     case GAMEPLAY_INTRO:
         SendEscape();
@@ -253,6 +253,15 @@ int CinematicBasic::Update()
         if(menuActive){
             if(escapeKey){
                 result=MENU_ACTION_CONTINUE_GAME;
+                escapeKey = false;
+                menuActive = false;
+            }
+        }
+        break;
+    case CINEMATIC_HELP:
+        if(menuActive){
+            if(escapeKey){
+                result=MENU_ACTION_BACK_MAINMENU;
                 escapeKey = false;
                 menuActive = false;
             }

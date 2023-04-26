@@ -291,6 +291,7 @@ void Renderer::Render()
             }else{
                 GoToXY((*game->itCinematics)->GetX0(),(*game->itCinematics)->GetY0());
                 std::cout << (*game->itCinematics)->Draw();
+                std::cout << "HOLA!";
             }
         }
     }
