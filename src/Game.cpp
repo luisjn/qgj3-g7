@@ -5,6 +5,10 @@ Game::Game()
 #ifdef DEBUG_MODE
     std::cout << "Gameplay Start...\n";
 #endif
+    gameState = GAMEPLAY_STATE_INTIAL;
+
+    
+
     LoadLevel(0);
     mSpaceship = new Spaceship();
 }
@@ -24,7 +28,150 @@ Game::~Game()
 //     msound_engine = SoundEngine;
 // }
 
+void Game::SetRenderAvailable()
+{
+    switch(gameState){
+        case GAMEPLAY_STATE_INTIAL:
+            renderBkg = false;
+            renderShip = false;
+            renderEnemy = false;
+            renderShoots = false;
+            renderMenu = false;
+            renderCinematic = false;
+            break;
+        case GAMEPLAY_STATE_PRESENTATION:
+            renderBkg = false;
+            renderShip = false;
+            renderEnemy = false;
+            renderShoots = false;
+            renderMenu = false;
+            renderCinematic = true;
+            break;
+        case GAMEPLAY_STATE_MAIN_MENU:
+            renderBkg = false;
+            renderShip = false;
+            renderEnemy = false;
+            renderShoots = false;
+            renderMenu = true;
+            renderCinematic = false;
+            break;
+        case GAMEPLAY_STATE_ON_GAME:
+            renderBkg = true;
+            renderShip = true;
+            renderEnemy = true;
+            renderShoots = true;
+            renderMenu = false;
+            renderCinematic = false;
+            break;
+        case GAMEPLAY_STATE_PAUSE:
+            renderBkg = true;
+            renderShip = true;
+            renderEnemy = true;
+            renderShoots = true;
+            renderMenu = true;
+            renderCinematic = false;
+            break;
+        case GAMEPLAY_STATE_END_GAME:
+            renderBkg = true;
+            renderShip = false;
+            renderEnemy = false;
+            renderShoots = false;
+            renderMenu = true;
+            renderCinematic = true;
+            break;
+        }
+}
+
 void Game::Update()
+{
+    switch(gameState){
+        case GAMEPLAY_STATE_INTIAL:
+            GameplayInitial();
+            break;
+        case GAMEPLAY_STATE_PRESENTATION:
+            GameplayOnPresentation();
+            break;
+        case GAMEPLAY_STATE_MAIN_MENU:
+            GameplayOnMainMenu();
+            break;
+        case GAMEPLAY_STATE_ON_GAME:
+            GameplayOnRun();
+            break;
+        case GAMEPLAY_STATE_PAUSE:
+            GameplayOnPause();
+            break;
+        case GAMEPLAY_STATE_END_GAME:
+            GameplayOnEnd();
+            break;
+        }
+}
+
+
+void Game::GameplayInitial()
+{
+//    std::cout << "gameState: "<< gameState << "\n";
+    gameState = GAMEPLAY_STATE_PRESENTATION; // HARDCODE JUMP TO NEXT STATE...
+    SetRenderAvailable();
+}
+
+
+void Game::GameplayOnPresentation()
+{
+//    std::cout << "gameState: "<< gameState << "\n";
+    gameState = GAMEPLAY_STATE_MAIN_MENU; // HARDCODE JUMP TO NEXT STATE...
+    SetRenderAvailable();
+}
+
+void Game::GameplayOnMainMenu()
+{
+    bool MM_NotExist=true;
+    for (itMenues = menues.begin(); itMenues != menues.end(); itMenues++)
+    {
+        if((*itMenues)->GetMenuID()==MENU_MAINMENU_CODE){
+            MM_NotExist=false;
+            (*itMenues)->Update();
+            if(!(*itMenues)->GetMenuActive()){
+                delete (*itMenues);
+                itMenues = menues.erase(itMenues);
+                gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP TO NEXT STATE...
+                SetRenderAvailable();
+            }
+        }
+    }
+    if(MM_NotExist){
+        menues.push_back(new MenuBasic(MENU_MAINMENU_CODE));
+    }
+}
+
+void Game::GameplayOnPause()
+{
+    bool PM_NotExist=true;
+    for (itMenues = menues.begin(); itMenues != menues.end(); itMenues++)
+    {
+        if((*itMenues)->GetMenuID()==MENU_PAUSEMENU_CODE){
+            PM_NotExist=false;
+            (*itMenues)->Update();
+            if(!(*itMenues)->GetMenuActive()){
+                delete (*itMenues);
+                itMenues = menues.erase(itMenues);
+                gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP TO NEXT STATE...
+                SetRenderAvailable();
+            }
+        }
+    }
+    if(PM_NotExist){
+        menues.push_back(new MenuBasic(MENU_PAUSEMENU_CODE));
+    }
+}
+
+void Game::GameplayOnEnd()
+{
+//    std::cout << "gameState: "<< gameState << "\n";
+    gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP BACK TO GAME...
+    SetRenderAvailable();
+}
+
+void Game::GameplayOnRun()
 {
     if (mSpaceship->Position.x > Width - Limit)
     {
@@ -42,7 +189,6 @@ void Game::Update()
     {
         mSpaceship->Position.y = Height - Limit;
     }
-
     for (itProjectiles = projectiles.begin(); itProjectiles != projectiles.end(); itProjectiles++)
     {
         (*itProjectiles)->Update();
@@ -72,6 +218,37 @@ void Game::LoadLevel(int lID)
 void Game::UnloadLevel()
 {
     delete level;
+}
+
+void Game::Input(int side_ID)
+{
+    switch(gameState){
+        case GAMEPLAY_STATE_INTIAL:
+            break;
+        case GAMEPLAY_STATE_PRESENTATION:
+            break;
+        case GAMEPLAY_STATE_MAIN_MENU:
+            for (itMenues = menues.begin(); itMenues != menues.end(); itMenues++)
+            {
+                if((*itMenues)->GetMenuID()==MENU_MAINMENU_CODE){
+                    (*itMenues)->Input(side_ID);
+                }
+            }
+            break;
+        case GAMEPLAY_STATE_PAUSE:
+            for (itMenues = menues.begin(); itMenues != menues.end(); itMenues++)
+            {
+                if((*itMenues)->GetMenuID()==MENU_PAUSEMENU_CODE){
+                    (*itMenues)->Input(side_ID);
+                }
+            }
+            break;
+        case GAMEPLAY_STATE_END_GAME:
+            break;
+        case GAMEPLAY_STATE_ON_GAME:
+            InputMove(side_ID);
+            break;
+        }
 }
 
 void Game::InputMove(int side_ID)
@@ -107,10 +284,18 @@ void Game::InputMove(int side_ID)
     case GAMEPLAY_MOVE_S:
         level->MoveMapDown();
         break;
-    case 50:
+    case GAMEPLAY_EXIT:
+        gameState = GAMEPLAY_STATE_PAUSE;
+        SetRenderAvailable();
+        break;
+    case GAMEPLAY_JUMPMAINMENU:
+        gameState = GAMEPLAY_STATE_MAIN_MENU;
+        SetRenderAvailable();
+        break;
+    case GAMEPLAY_JUMPLEVEL_00:
         LoadLevel(0); // GP: Initiated "Level_0.txt"
         break;
-    case 51:
+    case GAMEPLAY_JUMPLEVEL_01:
         LoadLevel(1); // GP: Initiated "Level_0.txt"
         break;
     }

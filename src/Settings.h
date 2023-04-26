@@ -59,17 +59,41 @@
 // Define for Gameplay:
 // --------------------
 // A) Move input type:
+//    Move Arrows:
 #define GAMEPLAY_MOVE_LEFT 0
 #define GAMEPLAY_MOVE_RIGHT 1
 #define GAMEPLAY_MOVE_UP 2
 #define GAMEPLAY_MOVE_DOWN 3
-#define GAMEPLAY_SHOOT 4
+//    Move Keys:
 #define GAMEPLAY_MOVE_A 10
 #define GAMEPLAY_MOVE_D 11
 #define GAMEPLAY_MOVE_W 12
 #define GAMEPLAY_MOVE_S 13
+//    Move Shotd:
+#define GAMEPLAY_SHOOT 20
+//    Move Manu:
+#define GAMEPLAY_EXIT 30
+//    Move SPECIALs:
+#define GAMEPLAY_JUMPMAINMENU 40
+#define GAMEPLAY_JUMPLEVEL_00 50
+#define GAMEPLAY_JUMPLEVEL_01 51
+// B) Interrupt input type:
+#define GAMEPLAY_INTERRUMP_F1 10
+// C) Gameplay states:
+#define GAMEPLAY_STATE_INTIAL 0
+#define GAMEPLAY_STATE_PRESENTATION 1
+#define GAMEPLAY_STATE_MAIN_MENU 2
+#define GAMEPLAY_STATE_ON_GAME 3
+#define GAMEPLAY_STATE_PAUSE 4
+#define GAMEPLAY_STATE_END_GAME 5
 
 // Console
 #define Width 120
 #define Height 30
 #define Limit 3
+
+// Define for Menues:
+// --------------------
+// A) Menues available:
+#define MENU_MAINMENU_CODE 0
+#define MENU_PAUSEMENU_CODE 1
