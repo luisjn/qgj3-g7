@@ -11,6 +11,7 @@
 #include "Spaceship.hpp" // Add player charactable to Gameplay
 #include "Vector2.hpp"
 #include "Projectile.hpp"
+#include "MenuBasic.hpp" // Add Menu
 
 class Game
 {
@@ -22,14 +23,36 @@ private:
     Spaceship *mSpaceship;
     std::string mCurrentMap = "";
 
+    // Game State
+    int gameState;
+    void GameplayInitial();
+    void GameplayOnPresentation();
+    void GameplayOnMainMenu();
+    void GameplayOnRun();
+    void GameplayOnPause();
+    void GameplayOnEnd();
+    void SetRenderAvailable();
+
 public:
     std::list<Projectile *> projectiles;
     std::list<Projectile *>::iterator itProjectiles;
+
+    std::list<MenuBasic *> menues;
+    std::list<MenuBasic *>::iterator itMenues;
+
+    //MenuBasic* mainMenu; // Main menu
+    bool renderBkg;
+    bool renderShip;
+    bool renderEnemy;
+    bool renderShoots;
+    bool renderMenu;
+    bool renderCinematic;
 
     // void GetSoundEngine(Sound *SoundEngine); // SE: To get the Sound Engine pass by Game Engine
     void LoadLevel(int lID);
     void UnloadLevel();
     void Update();
+    void Input(int side_ID);
     void InputMove(int side_ID);
     int GetImgLX();
     int GetImgLY();
