@@ -32,6 +32,7 @@ private:
     void GameplayOnPause();
     void GameplayOnEnd();
     void SetRenderAvailable();
+    bool isRunning;
 
 public:
     std::list<Projectile *> projectiles;
@@ -47,6 +48,8 @@ public:
     bool renderShoots;
     bool renderMenu;
     bool renderCinematic;
+
+    bool IsRunning();
 
     // void GetSoundEngine(Sound *SoundEngine); // SE: To get the Sound Engine pass by Game Engine
     void LoadLevel(int lID);

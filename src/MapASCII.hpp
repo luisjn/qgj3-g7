@@ -11,7 +11,6 @@
 class MapASCII
 {
 private:
-    bool errorCode;
     int longHorizontal;
     int longVertical;
     std::string map_file_path;
