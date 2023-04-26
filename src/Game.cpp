@@ -28,9 +28,10 @@ Game::~Game()
     // delete msound_engine;
 }
 
-void Game::Start()
+void Game::Restart()
 {
-    LoadLevel(0);
+    delete mSpaceship;
+    enemies.clear();
     mSpaceship = new Spaceship();
     SpawnEnemies();
 }
@@ -224,28 +225,44 @@ void Game::GameplayOnPause()
 
 void Game::GameplayOnEnd()
 {
-    //    std::cout << "gameState: "<< gameState << "\n";
     gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP BACK TO GAME...
     SetRenderAvailable();
 }
 
 void Game::GameplayOnRun()
 {
+    if (mSpaceship->mHp <= 0)
+    {
+        Restart();
+    }
+
     if (mSpaceship->Position.x > Width - Limit)
     {
+        enemies.clear();
+        level->MoveMapRight();
         mSpaceship->Position.x = Limit;
+        SpawnEnemies();
     }
     else if (mSpaceship->Position.x < Limit)
     {
+        enemies.clear();
+        level->MoveMapLeft();
         mSpaceship->Position.x = Width - Limit;
+        SpawnEnemies();
     }
     else if (mSpaceship->Position.y > Height - Limit)
     {
+        enemies.clear();
+        level->MoveMapDown();
         mSpaceship->Position.y = Limit;
+        SpawnEnemies();
     }
     else if (mSpaceship->Position.y < Limit)
     {
+        enemies.clear();
+        level->MoveMapUp();
         mSpaceship->Position.y = Height - Limit;
+        SpawnEnemies();
     }
 
     for (itProjectiles = projectiles.begin(); itProjectiles != projectiles.end(); itProjectiles++)
@@ -264,7 +281,18 @@ void Game::GameplayOnRun()
 
         if ((*itEnemies)->IsColliding(mSpaceship->Position))
         {
-            std::cout << "colliding";
+            mSpaceship->mHp -= 5;
+        }
+
+        for (itProjectiles = projectiles.begin(); itProjectiles != projectiles.end(); itProjectiles++)
+        {
+            if ((*itEnemies)->IsColliding((*itProjectiles)->Position()))
+            {
+                delete (*itProjectiles);
+                itProjectiles = projectiles.erase(itProjectiles);
+                delete (*itEnemies);
+                itEnemies = enemies.erase(itEnemies);
+            }
         }
     }
 }
@@ -333,19 +361,6 @@ void Game::InputMove(int side_ID)
         break;
     case GAMEPLAY_SHOOT:
         projectiles.push_back(new Projectile(mSpaceship->Position.x, mSpaceship->Position.y, mSpaceship->Direction()));
-        break;
-    // Move maps on level:
-    case GAMEPLAY_MOVE_A:
-        level->MoveMapLeft();
-        break;
-    case GAMEPLAY_MOVE_D:
-        level->MoveMapRight();
-        break;
-    case GAMEPLAY_MOVE_W:
-        level->MoveMapUp();
-        break;
-    case GAMEPLAY_MOVE_S:
-        level->MoveMapDown();
         break;
     case GAMEPLAY_EXIT:
         gameState = GAMEPLAY_STATE_PAUSE;

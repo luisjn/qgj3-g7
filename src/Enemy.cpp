@@ -28,22 +28,6 @@ void Enemy::FollowPlayer(Vector2 playerPos)
     Vector2 dir = (playerPos - Position).Normalize();
     Position.x += dir.x * 0.2;
     Position.y += dir.y * 0.2;
-    if (Position.x == playerPos.x && Position.y == playerPos.y - 1)
-    {
-        Position.y -= 1;
-    }
-    if (Position.x == playerPos.x + 1 && Position.y == playerPos.y)
-    {
-        Position.x += 1;
-    }
-    if (Position.x == playerPos.x && Position.y == playerPos.y + 1)
-    {
-        Position.y += 1;
-    }
-    if (Position.x == playerPos.x - 1 && Position.y == playerPos.y)
-    {
-        Position.x -= 1;
-    }
 }
 
 float Enemy::DistanceVector2(Vector2 v1, Vector2 v2)
@@ -55,11 +39,8 @@ float Enemy::DistanceVector2(Vector2 v1, Vector2 v2)
 bool Enemy::IsColliding(Vector2 other)
 {
     float distance = DistanceVector2(other, Position); // distance circle
-    if(
-        distance<=radiousImpact // distance circle - Best for Enemies
-        //(other.x-radiousImpact<=Position.x)&&(other.x+radiousImpact>=Position.y)&& // linear distance - Best for shoots
-        //(other.y-radiousImpact<=Position.y)&&(other.y+radiousImpact>=Position.y) // linear distance - Best for shoots
-        ){
+    if (distance <= radiousImpact)
+    {
         return true;
     }
     return false;

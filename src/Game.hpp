@@ -79,7 +79,7 @@ public:
     float PlayerPositionY();
     char Player();
     int PlayerHP();
-    void Start();
+    void Restart();
     Game();
     ~Game();
 };
