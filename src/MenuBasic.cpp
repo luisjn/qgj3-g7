@@ -12,10 +12,46 @@ MenuBasic::MenuBasic(int newMenuID)
 {
     menuID = newMenuID;
     menuActive = true;
+    optionSelected = 0;
+    switch(menuID){
+    case MENU_MAINMENU_CODE:
+        x0=10;
+        y0=10;
+        break;
+    case MENU_PAUSEMENU_CODE:
+        x0=20;
+        y0=20;
+        break;
+    default:
+        x0=0;
+        y0=0;
+        break;
+    }
+}
+
+MenuBasic::MenuBasic(int newMenuID, int x_0, int y_0)
+{
+    menuID = newMenuID;
+    menuActive = true;
+    x0=x_0;
+    y0=y_0;
+    optionSelected = 0;
+}
+
+MenuBasic::MenuBasic(int newMenuID, int x_0, int y_0, int d_x, int d_y)
+{
+    menuID = newMenuID;
+    menuActive = true;
+    x0=x_0;
+    y0=y_0;
+    dx=d_x;
+    dy=d_y;
+    optionSelected = 0;
 }
 
 MenuBasic::~MenuBasic()
 {
+    delete imgASCII;
 }
 
 // Voids: ------------------------------------------------------------------------------------------------------------
@@ -23,6 +59,26 @@ MenuBasic::~MenuBasic()
 bool MenuBasic::GetMenuActive()
 {
     return menuActive;
+}
+
+int MenuBasic::GetX0()
+{
+    return x0;
+}
+
+int MenuBasic::GetY0()
+{
+    return y0;
+}
+
+int MenuBasic::GetDX()
+{
+    return dx;
+}
+
+int MenuBasic::GetDY()
+{
+    return dy;
 }
 
 void MenuBasic::Input(int side_ID)

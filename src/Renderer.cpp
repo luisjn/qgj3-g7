@@ -252,6 +252,7 @@ void Renderer::Render()
         */
         for (game->itMenues = game->menues.begin(); game->itMenues != game->menues.end(); game->itMenues++)
         {
+            GoToXY((*game->itMenues)->GetX0(),(*game->itMenues)->GetY0());
             std::cout << (*game->itMenues)->Draw();
         }
     }
@@ -265,6 +266,19 @@ void Renderer::GoToXY(int x, int y)
     mCursorPosition.Y = y;
     SetConsoleCursorPosition(mWindow, mCursorPosition);
 }
+
+/*
+void GameplayA::MergeImageASCII(std::string imgASCIItoMerge, int x0, int y0, int dx, int dy)
+{
+    int calc;
+    for(int y=0;y<dy;y++){
+        for(int x=0;x<dx;x++){
+            calc=(y*dx)+y+x;
+            imgASCII[y+y0][x+x0]=(char)imgASCIItoMerge[calc];
+        }
+    }
+}
+*/
 
 // void Renderer::PrintASCII()
 // {
