@@ -25,8 +25,11 @@ private:
     void InitializeMapMatrix();
 public:
     char** GetMapASCII();
-//    void MovePlayer();
-//    void LoadLevel();
+
+    std::string GetHistoryText();
+    int GetActiveMapX();
+    int GetActiveMapY();
+
     void MoveMapUp();
     void MoveMapDown();
     void MoveMapLeft();

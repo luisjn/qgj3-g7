@@ -32,6 +32,23 @@ LevelFile::~LevelFile()
 
 // Voids: ------------------------------------------------------------------------------------------------------------
 
+std::string LevelFile::GetHistoryText()
+{
+    std::string result;
+    // work!!!
+    return result;
+}
+
+int LevelFile::GetActiveMapX()
+{
+    return activeMap_x;
+}
+
+int LevelFile::GetActiveMapY()
+{
+    return activeMap_y;
+}
+
 void LevelFile::MoveMapUp()
 {
     UnloadMap(activeMap_x,activeMap_y);
