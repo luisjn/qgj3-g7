@@ -97,3 +97,8 @@
 // A) Menues available:
 #define MENU_MAINMENU_CODE 0
 #define MENU_PAUSEMENU_CODE 1
+
+// Define for Enemies:
+// --------------------
+// A) radiousImpact:
+#define ENEMY_RADIOUS_IMPACT 0.25f

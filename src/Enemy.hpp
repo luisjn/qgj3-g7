@@ -1,5 +1,6 @@
 #include <string>
 #include "Vector2.hpp"
+#include "Settings.h" // General Game DEFINEs
 
 class Enemy
 {
@@ -11,6 +12,7 @@ public:
     float PositionY();
     void FollowPlayer(Vector2 playerPos);
     bool IsColliding(Vector2 other);
+    float radiousImpact;
 
     Vector2 Position;
 

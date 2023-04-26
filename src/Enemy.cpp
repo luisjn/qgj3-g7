@@ -5,6 +5,7 @@ Enemy::Enemy(float x, float y, char e)
     Position.x = x;
     Position.y = y;
     mEnemy = e;
+    radiousImpact = ENEMY_RADIOUS_IMPACT;
 }
 
 char Enemy::Draw()
@@ -47,9 +48,10 @@ void Enemy::FollowPlayer(Vector2 playerPos)
 
 bool Enemy::IsColliding(Vector2 other)
 {
-    // if (Position.x == other.x && Position.y == other.y)
-    if (Position == other)
-    {
+    if(
+        (other.x-radiousImpact<=Position.x)&&(other.x+radiousImpact>=Position.y)&&
+        (other.y-radiousImpact<=Position.y)&&(other.y+radiousImpact>=Position.y)
+        ){
         return true;
     }
     return false;
