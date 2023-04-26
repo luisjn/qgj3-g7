@@ -9,6 +9,9 @@ public:
     bool IsOut();
     float PositionX();
     float PositionY();
+    char GetDirection();
+    int GetSpeedX();
+    int GetSpeedY();
     Vector2 Position();
 
 private:

@@ -13,11 +13,11 @@
 #include "Projectile.hpp"
 #include "MenuBasic.hpp" // Add Menu
 #include "Enemy.hpp"
+#include "CinematicBasic.hpp" // Add Cinematics
 
 class Game
 {
 private:
-    // Sound *msound_engine; // SE: In memory object to sound engine interact
     LevelFile *level;
     int actualLevel, imgLengX, imgLengY;
     char **imgASCII;
@@ -52,7 +52,9 @@ public:
     std::list<Enemy *> enemies;
     std::list<Enemy *>::iterator itEnemies;
 
-    // MenuBasic* mainMenu; // Main menu
+    std::list<CinematicBasic *> cinematics;
+    std::list<CinematicBasic *>::iterator itCinematics;
+
     bool renderBkg;
     bool renderShip;
     bool renderEnemy;

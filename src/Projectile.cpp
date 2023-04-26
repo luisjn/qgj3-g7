@@ -8,21 +8,36 @@ Projectile::Projectile(int px, int py, char d)
     mDirection = d;
 }
 
+char Projectile::GetDirection()
+{
+    return mDirection;
+}
+
+int Projectile::GetSpeedX()
+{
+    return spdx;
+}
+
+int Projectile::GetSpeedY()
+{
+    return spdy;
+}
+
 void Projectile::Update()
 {
-    if (mDirection == 'u')
+    if (mDirection == 'u') // Up
     {
         mPosition.y -= spdy;
     }
-    else if (mDirection == 'd')
+    else if (mDirection == 'd') // Down
     {
         mPosition.y += spdy;
     }
-    else if (mDirection == 'r')
+    else if (mDirection == 'r') // Rigth
     {
         mPosition.x += spdx;
     }
-    else if (mDirection == 'l')
+    else if (mDirection == 'l') // Left
     {
         mPosition.x -= spdx;
     }

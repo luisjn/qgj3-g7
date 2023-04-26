@@ -9,9 +9,7 @@ Game::Game()
 #endif
     gameState = GAMEPLAY_STATE_INTIAL;
     isRunning = true;
-
     srand(time(0));
-
     LoadLevel(0);
     mSpaceship = new Spaceship();
     SpawnEnemies();
@@ -25,7 +23,6 @@ Game::~Game()
     delete level;
     delete mSpaceship;
     isRunning = false;
-    // delete msound_engine;
 }
 
 void Game::Restart()
@@ -91,11 +88,11 @@ void Game::SetRenderAvailable()
         renderCinematic = false;
         break;
     case GAMEPLAY_STATE_END_GAME:
-        renderBkg = true;
+        renderBkg = false;
         renderShip = false;
         renderEnemy = false;
         renderShoots = false;
-        renderMenu = true;
+        renderMenu = false;
         renderCinematic = true;
         break;
     }
@@ -135,8 +132,27 @@ void Game::GameplayInitial()
 
 void Game::GameplayOnPresentation()
 {
-    gameState = GAMEPLAY_STATE_MAIN_MENU; // HARDCODE JUMP TO NEXT STATE...
-    SetRenderAvailable();
+    bool CN_NotExist=true;
+    for (itCinematics = cinematics.begin(); itCinematics != cinematics.end(); itCinematics++)
+    {
+        if((*itCinematics)->GetMenuID()==CINEMATIC_INITIAL){
+            CN_NotExist=false;
+            int result = (*itCinematics)->Update();
+            switch(result){
+                case MENU_ACTION_BACK_MAINMENU:
+                    gameState = GAMEPLAY_STATE_MAIN_MENU; // HARDCODE JUMP TO NEXT STATE...
+                    SetRenderAvailable();
+                    break;
+            }
+            if(!(*itCinematics)->GetMenuActive()){
+                delete (*itCinematics);
+                itCinematics = cinematics.erase(itCinematics);
+            }
+        }
+    }
+    if(CN_NotExist){
+        cinematics.push_back(new CinematicBasic(CINEMATIC_INITIAL,0,0,CINEMATIC_INITIAL_FILE));
+    }
 }
 
 void Game::GameplayOnMainMenu()
@@ -167,6 +183,8 @@ void Game::GameplayOnMainMenu()
             case MENU_ACTION_LOAD_SAVE:
                 break;
             case MENU_ACTION_GO_PRESENTATION:
+                gameState = GAMEPLAY_STATE_PRESENTATION;
+                SetRenderAvailable();
                 break;
             }
             if (!(*itMenues)->GetMenuActive())
@@ -225,16 +243,60 @@ void Game::GameplayOnPause()
 
 void Game::GameplayOnEnd()
 {
-    gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP BACK TO GAME...
-    SetRenderAvailable();
+    bool CN_NotExist=true;
+    for (itCinematics = cinematics.begin(); itCinematics != cinematics.end(); itCinematics++)
+    {
+        if((*itCinematics)->GetMenuID()==CINEMATIC_END){
+            CN_NotExist=false;
+            int result = (*itCinematics)->Update();
+            switch(result){
+                case MENU_ACTION_CONTINUE_GAME:
+                        gameState = GAMEPLAY_STATE_ON_GAME;
+                        SetRenderAvailable();
+                    break;
+            }
+            if(!(*itCinematics)->GetMenuActive()){
+                delete (*itCinematics);
+                itCinematics = cinematics.erase(itCinematics);
+            }
+        }
+    }
+    if(CN_NotExist){
+        std::string pathFile = CINEMATIC_END_FILE;
+        // FAIL CONDITION:
+        if (mSpaceship->mHp <= 0)
+        {
+            pathFile=CINEMATIC_ENDFAIL_FILE;
+            Restart();
+        }
+        // VICTORY CONDITION:
+        /*
+        if (???????????)
+        {
+            pathFile=CINEMATIC_ENDGOOD_FILE;
+            Restart();
+        }
+        */
+        cinematics.push_back(new CinematicBasic(CINEMATIC_END,0,0,pathFile));
+    }
 }
 
 void Game::GameplayOnRun()
 {
+    // FAIL CONDITION:
     if (mSpaceship->mHp <= 0)
     {
-        Restart();
+        gameState = GAMEPLAY_STATE_END_GAME;
+        SetRenderAvailable();
     }
+    // VICTORY CONDITION:
+    /*
+    if (???????????)
+    {
+        gameState = GAMEPLAY_STATE_END_GAME;
+        SetRenderAvailable();
+    }
+    */
 
     if (mSpaceship->Position.x > Width - Limit)
     {
@@ -286,12 +348,13 @@ void Game::GameplayOnRun()
 
         for (itProjectiles = projectiles.begin(); itProjectiles != projectiles.end(); itProjectiles++)
         {
-            if ((*itEnemies)->IsColliding((*itProjectiles)->Position()))
+            if ((*itEnemies)->IsColliding((*itProjectiles)->Position(),(*itProjectiles)->GetDirection(),(*itProjectiles)->GetSpeedX(),(*itProjectiles)->GetSpeedY()))
             {
                 delete (*itProjectiles);
                 itProjectiles = projectiles.erase(itProjectiles);
                 delete (*itEnemies);
                 itEnemies = enemies.erase(itEnemies);
+                // COUNT ENEMIES DIED
             }
         }
     }
@@ -315,7 +378,11 @@ void Game::Input(int side_ID)
     case GAMEPLAY_STATE_INTIAL:
         break;
     case GAMEPLAY_STATE_PRESENTATION:
-        break;
+            for (itCinematics = cinematics.begin(); itCinematics != cinematics.end(); itCinematics++)
+            {
+                (*itCinematics)->Input(side_ID);
+            }
+            break;
     case GAMEPLAY_STATE_MAIN_MENU:
         for (itMenues = menues.begin(); itMenues != menues.end(); itMenues++)
         {
@@ -335,6 +402,11 @@ void Game::Input(int side_ID)
         }
         break;
     case GAMEPLAY_STATE_END_GAME:
+            for (itCinematics = cinematics.begin(); itCinematics != cinematics.end(); itCinematics++)
+            {
+                (*itCinematics)->Input(side_ID);
+            }
+            break;
         break;
     case GAMEPLAY_STATE_ON_GAME:
         InputMove(side_ID);
