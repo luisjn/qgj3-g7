@@ -348,12 +348,13 @@ void Game::GameplayOnRun()
 
         for (itProjectiles = projectiles.begin(); itProjectiles != projectiles.end(); itProjectiles++)
         {
-            if ((*itEnemies)->IsColliding((*itProjectiles)->Position()))
+            if ((*itEnemies)->IsColliding((*itProjectiles)->Position(),(*itProjectiles)->GetDirection(),(*itProjectiles)->GetSpeedX(),(*itProjectiles)->GetSpeedY()))
             {
                 delete (*itProjectiles);
                 itProjectiles = projectiles.erase(itProjectiles);
                 delete (*itEnemies);
                 itEnemies = enemies.erase(itEnemies);
+                // COUNT ENEMIES DIED
             }
         }
     }

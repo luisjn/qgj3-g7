@@ -45,3 +45,64 @@ bool Enemy::IsColliding(Vector2 other)
     }
     return false;
 }
+
+bool Enemy::IsColliding(Vector2 other, char mDirection, int spdx, int spdy)
+{
+    int other_x = static_cast<int>(other.x);
+    int other_y = static_cast<int>(other.y);
+    int pos_x = static_cast<int>(Position.x);
+    int pos_y = static_cast<int>(Position.y);
+
+    if (mDirection == 'u') // Up
+    {
+        //mPosition.y -= spdy;
+        if ((pos_x==other_x))
+        {
+            if ((other_y-spdy<=pos_y) && (pos_y<=other_y))
+            {
+                return true;
+            }
+        }
+    }
+    else if (mDirection == 'd') // Down
+    {
+        //mPosition.y += spdy;
+        if ((pos_x==other_x))
+        {
+            if ((other_y<=pos_y) && (pos_y<=other_y+spdy))
+            {
+                return true;
+            }
+        }
+    }
+    else if (mDirection == 'r') // Rigth
+    {
+        //mPosition.x += spdx;
+        if ((pos_y==other_y))
+        {
+            if ((other_x<=pos_x) && (pos_x<=other_x+spdx))
+            {
+                return true;
+            }
+        }
+    }
+    else if (mDirection == 'l') // Left
+    {
+        //mPosition.x -= spdx;
+         if ((pos_y==other_y))
+        {
+            if ((other_x-spdx<=pos_x) && (pos_x<=other_x))
+            {
+                return true;
+            }
+        }
+   }
+/*
+(other.x-radiousImpact<=Position.x)&&(other.x+radiousImpact>=Position.y)&& // linear distance - Best for shoots
+(other.y-radiousImpact<=Position.y)&&(other.y+radiousImpact>=Position.y) // linear distance - Best for shoots
+
+    float distance = DistanceVector2(other, Position); // distance circle
+*/
+    
+    return false;
+}
