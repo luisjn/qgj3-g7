@@ -72,9 +72,9 @@ void Renderer::Update()
 
 void Renderer::ProcessInput()
 {
-//    int i;
-//std::cout << "Int pauseA:";
-//std::cin >> i;
+    //    int i;
+    // std::cout << "Int pauseA:";
+    // std::cin >> i;
 
     // ARROWS:
     if (GetKeyState(VK_RIGHT) & 0x8000)
@@ -200,14 +200,15 @@ void Renderer::GetBackgroundImage()
     imgLengY = game->GetImgLY();
 }
 
-
 void Renderer::RenderBackground()
 {
-    std::string stringText = ""; 
-	for (int x = 0; x < imgLengX; x++) { 
-	    for (int y = 0; y < imgLengY; y++) { 
-		    stringText = stringText + ASCII_img[x][y]; 
-	    }
+    std::string stringText = "";
+    for (int x = 0; x < imgLengX; x++)
+    {
+        for (int y = 0; y < imgLengY; y++)
+        {
+            stringText = stringText + ASCII_img[x][y];
+        }
         stringText = stringText + "\n";
     }
     std::cout << stringText;
@@ -220,42 +221,56 @@ void Renderer::Render()
      */
     Clear();
 
-    if(game->renderBkg){
+    if (game->renderBkg)
+    {
         /*
-        * MAP / BACKGROUND
-        */
+         * MAP / BACKGROUND
+         */
         GetBackgroundImage();
         RenderBackground();
     }
-    if(game->renderShip){
+    if (game->renderShip)
+    {
         /*
-        * PLAYER
-        */
+         * PLAYER
+         */
         GoToXY(game->PlayerPositionX(), game->PlayerPositionY());
         std::cout << game->Player();
     }
-    if(game->renderEnemy){
-    }
-    if(game->renderShoots){
+    if (game->renderEnemy)
+    {
         /*
-        * PROYECTILES
-        */
+         * Enemies
+         */
+        for (game->itEnemies = game->enemies.begin(); game->itEnemies != game->enemies.end(); game->itEnemies++)
+        {
+            GoToXY((*game->itEnemies)->PositionX(), (*game->itEnemies)->PositionY());
+            std::cout << (*game->itEnemies)->Draw();
+        }
+    }
+    if (game->renderShoots)
+    {
+        /*
+         * PROYECTILES
+         */
         for (game->itProjectiles = game->projectiles.begin(); game->itProjectiles != game->projectiles.end(); game->itProjectiles++)
         {
             GoToXY((*game->itProjectiles)->PositionX(), (*game->itProjectiles)->PositionY());
             std::cout << (*game->itProjectiles)->Draw();
         }
     }
-    if(game->renderMenu){
+    if (game->renderMenu)
+    {
         /*
-        * MENU
-        */
+         * MENU
+         */
         for (game->itMenues = game->menues.begin(); game->itMenues != game->menues.end(); game->itMenues++)
         {
             std::cout << (*game->itMenues)->Draw();
         }
     }
-    if(game->renderCinematic){
+    if (game->renderCinematic)
+    {
     }
 }
 
@@ -265,23 +280,3 @@ void Renderer::GoToXY(int x, int y)
     mCursorPosition.Y = y;
     SetConsoleCursorPosition(mWindow, mCursorPosition);
 }
-
-// void Renderer::PrintASCII()
-// {
-//     string line = "";
-//     ifstream inFile;
-//     inFile.open("bomb_art. txt");
-//     if (inFile.is_open())
-//     {
-//         while (getline(inFile, line))
-//         {
-//             cout <‹ line <‹ end;
-//         }
-//     }
-//     else
-//     {
-//         cout <‹ "File failed to load. " <‹ end1;
-//         cout <‹ "No nuke displayed." < endl;
-//     }
-//     infile.close();
-// }

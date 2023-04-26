@@ -12,6 +12,7 @@
 #include "Vector2.hpp"
 #include "Projectile.hpp"
 #include "MenuBasic.hpp" // Add Menu
+#include "Enemy.hpp"
 
 class Game
 {
@@ -22,6 +23,7 @@ private:
     char **imgASCII;
     Spaceship *mSpaceship;
     std::string mCurrentMap = "";
+    std::string mEnemies[5] = {">v<", ">O<", ".-0-.", "'-0-'", "*.O.*"};
 
     // Game State
     int gameState;
@@ -32,6 +34,11 @@ private:
     void GameplayOnPause();
     void GameplayOnEnd();
     void SetRenderAvailable();
+    int RandomPosX();
+    int RandomPosY();
+    int RandomEnemy();
+    int RandomNumEnemies();
+    void SpawnEnemies();
 
 public:
     std::list<Projectile *> projectiles;
@@ -40,13 +47,20 @@ public:
     std::list<MenuBasic *> menues;
     std::list<MenuBasic *>::iterator itMenues;
 
-    //MenuBasic* mainMenu; // Main menu
+    std::list<Enemy *> enemies;
+    std::list<Enemy *>::iterator itEnemies;
+
+    // MenuBasic* mainMenu; // Main menu
     bool renderBkg;
     bool renderShip;
     bool renderEnemy;
     bool renderShoots;
     bool renderMenu;
     bool renderCinematic;
+    int lbx = 20, ubx = 100;
+    int lby = 10, uby = 20;
+    int lbe = 1, ube = 5;
+    int re = 6;
 
     // void GetSoundEngine(Sound *SoundEngine); // SE: To get the Sound Engine pass by Game Engine
     void LoadLevel(int lID);
@@ -61,6 +75,7 @@ public:
     float PlayerPositionX();
     float PlayerPositionY();
     char Player();
+    void Start();
     Game();
     ~Game();
 };

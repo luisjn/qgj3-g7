@@ -2,7 +2,7 @@
 
 Spaceship::Spaceship()
 {
-    Position.x = 60;
+    Position.x = 3;
     Position.y = 15;
 }
 
