@@ -228,6 +228,8 @@ void Renderer::Render()
          */
         GetBackgroundImage();
         RenderBackground();
+        GoToXY(1, 1);
+        std::cout << game->PlayerHP();
     }
     if (game->renderShip)
     {

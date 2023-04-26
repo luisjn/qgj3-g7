@@ -204,6 +204,7 @@ void Game::GameplayOnRun()
     {
         mSpaceship->Position.y = Height - Limit;
     }
+
     for (itProjectiles = projectiles.begin(); itProjectiles != projectiles.end(); itProjectiles++)
     {
         (*itProjectiles)->Update();
@@ -217,11 +218,11 @@ void Game::GameplayOnRun()
     for (itEnemies = enemies.begin(); itEnemies != enemies.end(); itEnemies++)
     {
         (*itEnemies)->FollowPlayer(mSpaceship->Position);
-        // if ((*itEnemies)->IsOut())
-        // {
-        //     delete (*itEnemies);
-        //     itEnemies = enemies.erase(itEnemies);
-        // }
+
+        if ((*itEnemies)->IsColliding(mSpaceship->Position))
+        {
+            std::cout << "colliding";
+        }
     }
 }
 
@@ -375,6 +376,11 @@ char Game::Player()
     return mSpaceship->Draw();
 }
 
+int Game::PlayerHP()
+{
+    return mSpaceship->mHp;
+}
+
 int Game::RandomPosX()
 {
     return (rand() % (ubx - lbx + 1)) + lbx;
@@ -400,6 +406,7 @@ void Game::SpawnEnemies()
     int rne = RandomNumEnemies();
     for (int i = 0; i < rne; i++)
     {
-        enemies.push_back(new Enemy(RandomPosX(), RandomPosY(), mEnemies[RandomEnemy()]));
+        char e = mEnemies[RandomEnemy()];
+        enemies.push_back(new Enemy(RandomPosX(), RandomPosY(), e));
     }
 }

@@ -4,16 +4,16 @@
 class Enemy
 {
 public:
-    Enemy(float x, float y);
-    Enemy(float x, float y, std::string e);
+    Enemy(float x, float y, char e);
 
-    std::string Draw();
+    char Draw();
     float PositionX();
     float PositionY();
     void FollowPlayer(Vector2 playerPos);
+    bool IsColliding(Vector2 other);
 
     Vector2 Position;
 
 private:
-    std::string mEnemy;
+    char mEnemy;
 };

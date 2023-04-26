@@ -13,6 +13,7 @@ public:
     char Direction();
 
     Vector2 Position;
+    int mHp = 100;
 
 private:
     char mSpaceship = 30;

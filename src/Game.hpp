@@ -23,7 +23,7 @@ private:
     char **imgASCII;
     Spaceship *mSpaceship;
     std::string mCurrentMap = "";
-    std::string mEnemies[5] = {">v<", ">O<", ".-0-.", "'-0-'", "*.O.*"};
+    int mEnemies[5] = {132, 137, 139, 148, 129};
 
     // Game State
     int gameState;
@@ -75,6 +75,7 @@ public:
     float PlayerPositionX();
     float PlayerPositionY();
     char Player();
+    int PlayerHP();
     void Start();
     Game();
     ~Game();
