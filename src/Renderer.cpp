@@ -284,6 +284,15 @@ void Renderer::Render()
     }
     if (game->renderCinematic)
     {
+        for (game->itCinematics = game->cinematics.begin(); game->itCinematics != game->cinematics.end(); game->itCinematics++)
+        {
+            if(((*game->itCinematics)->GetDX() < Width)&&((*game->itCinematics)->GetDY() < (Height))){
+                MergeImageASCII((*game->itCinematics)->Draw(), (*game->itCinematics)->GetX0(), (*game->itCinematics)->GetY0(), (*game->itCinematics)->GetDX(), (*game->itCinematics)->GetDY());
+            }else{
+                GoToXY((*game->itCinematics)->GetX0(),(*game->itCinematics)->GetY0());
+                std::cout << (*game->itCinematics)->Draw();
+            }
+        }
     }
 }
 
