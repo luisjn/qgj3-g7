@@ -28,6 +28,8 @@ private:
 
     Sound *sound_engine; // SE: In memory object to sound engine interact
     Game *game;          // GP: In memory object to interact
+    
+    void MergeImageASCII(std::string imgASCIItoMerge, int x0, int y0, int dx, int dy);
     void GetBackgroundImage();
     void RenderBackground();
     void ProcessInput();

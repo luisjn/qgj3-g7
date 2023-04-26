@@ -68,14 +68,11 @@ void Renderer::Update()
     ProcessInput();
     game->Update();
     Render();
+    *mRunning = game->IsRunning();
 }
 
 void Renderer::ProcessInput()
 {
-//    int i;
-//std::cout << "Int pauseA:";
-//std::cin >> i;
-
     // ARROWS:
     if (GetKeyState(VK_RIGHT) & 0x8000)
     {
@@ -125,6 +122,12 @@ void Renderer::ProcessInput()
     {
         game->Input(GAMEPLAY_MOVE_S);
         sound_engine->PlaySnd(2);
+    }
+
+    // ENTER;
+    if (GetKeyState(VK_RETURN) & 0x8000)
+    {
+        game->Input(GAMEPLAY_INTRO);
     }
 
     // ESCAPE:
@@ -252,8 +255,12 @@ void Renderer::Render()
         */
         for (game->itMenues = game->menues.begin(); game->itMenues != game->menues.end(); game->itMenues++)
         {
-            GoToXY((*game->itMenues)->GetX0(),(*game->itMenues)->GetY0());
-            std::cout << (*game->itMenues)->Draw();
+            if(((*game->itMenues)->GetDX() < Width)&&((*game->itMenues)->GetDY() < (Height))){
+                MergeImageASCII((*game->itMenues)->Draw(), (*game->itMenues)->GetX0(), (*game->itMenues)->GetY0(), (*game->itMenues)->GetDX(), (*game->itMenues)->GetDY());
+            }else{
+                GoToXY((*game->itMenues)->GetX0(),(*game->itMenues)->GetY0());
+                std::cout << (*game->itMenues)->Draw();
+            }
         }
     }
     if(game->renderCinematic){
@@ -266,6 +273,19 @@ void Renderer::GoToXY(int x, int y)
     mCursorPosition.Y = y;
     SetConsoleCursorPosition(mWindow, mCursorPosition);
 }
+
+void Renderer::MergeImageASCII(std::string imgASCIItoMerge, int x0, int y0, int dx, int dy)
+{
+    int calc;
+    for(int y=0;y<dy;y++){
+        for(int x=0;x<dx;x++){
+            calc=(y*dx)+y+x;
+            GoToXY(x+x0,y+y0);
+            std::cout << imgASCIItoMerge[calc];
+        }
+    }
+}
+
 
 /*
 void GameplayA::MergeImageASCII(std::string imgASCIItoMerge, int x0, int y0, int dx, int dy)

@@ -6,6 +6,7 @@ Game::Game()
     std::cout << "Gameplay Start...\n";
 #endif
     gameState = GAMEPLAY_STATE_INTIAL;
+    isRunning=true;
 
     
 
@@ -20,6 +21,7 @@ Game::~Game()
 #endif
     delete level;
     delete mSpaceship;
+    isRunning=false;
     // delete msound_engine;
 }
 
@@ -27,6 +29,11 @@ Game::~Game()
 // {
 //     msound_engine = SoundEngine;
 // }
+
+bool Game::IsRunning()
+{
+    return isRunning;
+}
 
 void Game::SetRenderAvailable()
 {
@@ -117,7 +124,7 @@ void Game::GameplayInitial()
 
 void Game::GameplayOnPresentation()
 {
-//    std::cout << "gameState: "<< gameState << "\n";
+    //std::cout << "gameState: "<< gameState << "\n";
     gameState = GAMEPLAY_STATE_MAIN_MENU; // HARDCODE JUMP TO NEXT STATE...
     SetRenderAvailable();
 }
@@ -129,17 +136,35 @@ void Game::GameplayOnMainMenu()
     {
         if((*itMenues)->GetMenuID()==MENU_MAINMENU_CODE){
             MM_NotExist=false;
-            (*itMenues)->Update();
+            int result = (*itMenues)->Update();
+            switch(result){
+                case MENU_ACTION_NULL:
+                    break;
+                case MENU_ACTION_CONTINUE_GAME:
+                    gameState = GAMEPLAY_STATE_ON_GAME;
+                    SetRenderAvailable();
+                    break;
+                case MENU_ACTION_SWITCH_SOUND:
+                    // change sound mode...
+                    break;
+                case MENU_ACTION_EXIT_GAME:
+                    isRunning=false;
+                    break;
+                case MENU_ACTION_GET_HELP:
+                    break;
+                case MENU_ACTION_LOAD_SAVE:
+                    break;
+                case MENU_ACTION_GO_PRESENTATION:
+                    break;
+            }
             if(!(*itMenues)->GetMenuActive()){
                 delete (*itMenues);
                 itMenues = menues.erase(itMenues);
-                gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP TO NEXT STATE...
-                SetRenderAvailable();
             }
         }
     }
     if(MM_NotExist){
-        menues.push_back(new MenuBasic(MENU_MAINMENU_CODE));
+        menues.push_back(new MenuBasic(MENU_MAINMENU_CODE,0,0,MENU_MAINMENU_FILE));
     }
 }
 
@@ -150,17 +175,33 @@ void Game::GameplayOnPause()
     {
         if((*itMenues)->GetMenuID()==MENU_PAUSEMENU_CODE){
             PM_NotExist=false;
-            (*itMenues)->Update();
+            int result = (*itMenues)->Update();
+            switch(result){
+                case MENU_ACTION_NULL:
+                    break;
+                case MENU_ACTION_CONTINUE_GAME:
+                    gameState = GAMEPLAY_STATE_ON_GAME;
+                    SetRenderAvailable();
+                    break;
+                case MENU_ACTION_SWITCH_SOUND:
+                    // change sound mode...
+                    break;
+                case MENU_ACTION_EXIT_GAME:
+                    isRunning=false;
+                    break;
+                case MENU_ACTION_BACK_MAINMENU:
+                    gameState = GAMEPLAY_STATE_MAIN_MENU; // HARDCODE JUMP TO NEXT STATE...
+                    SetRenderAvailable();
+                    break;
+            }
             if(!(*itMenues)->GetMenuActive()){
                 delete (*itMenues);
                 itMenues = menues.erase(itMenues);
-                gameState = GAMEPLAY_STATE_ON_GAME; // HARDCODE JUMP TO NEXT STATE...
-                SetRenderAvailable();
             }
         }
     }
     if(PM_NotExist){
-        menues.push_back(new MenuBasic(MENU_PAUSEMENU_CODE));
+        menues.push_back(new MenuBasic(MENU_PAUSEMENU_CODE,5,5,MENU_PAUSEMENU_FILE));
     }
 }
 
