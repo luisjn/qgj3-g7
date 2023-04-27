@@ -298,9 +298,9 @@ void Renderer::Render()
     }
     if (game->renderPlayerBar)
     {
-        GoToXY(49, 30);
+        GoToXY(49, 29);
         std::cout << "HP: " << game->PlayerHP();
-        GoToXY(58, 30);
+        GoToXY(58, 29);
         std::cout << "Enemies Killed: " << game->enemiesKilled;
     }
     if (game->renderHistory)
