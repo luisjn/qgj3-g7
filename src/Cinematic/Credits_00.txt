@@ -13,7 +13,7 @@ Grupo-07:                                        ---A space journey---          
 * * * Pablo Vazquez                                                                                                    x
                .                                                                                                       x
 * * LIO                  .                                                                                             x
-* * * Luis Alfredo Jaramillo Negrete           .                                                      .                x
+* * * Luis Jaramillo               .           .                                                      .                x
                                                                           .                                            x
 * * K-SF                                                                                                               x
 * * * Mauro Traba                                                                                                      x

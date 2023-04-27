@@ -66,10 +66,12 @@ public:
     bool renderMenu;
     bool renderHistory;
     bool renderCinematic;
+    bool renderPlayerBar;
     int lbx = 20, ubx = 100;
     int lby = 10, uby = 20;
     int lbe = 1, ube = 5;
     int re = 6;
+    int enemiesKilled = 0;
 
     std::string GetHistoryText();
     int GetHistoryTextX();

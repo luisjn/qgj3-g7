@@ -119,7 +119,7 @@
 // Console
 #define Width 120
 #define Height 29
-#define Limit 3
+#define Limit 1
 
 // Define for Enemies:
 #define ENEMY_RADIOUS_IMPACT 0.25f
