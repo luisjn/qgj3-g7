@@ -17,6 +17,9 @@ private:
     int levelID,maxMaps_x,maxMaps_y,activeMap_x,activeMap_y;
     MapASCII** maps_ASCII; // LF: In memory object to file interact - Maps
     std::string level_file_path;
+    std::string level_text;
+    int level_text_dx;
+    int level_text_dy;
     std::fstream level_file;
     void LoadMap(int x, int y);
     void UnloadMap(int x, int y);
@@ -27,6 +30,8 @@ public:
     char** GetMapASCII();
 
     std::string GetHistoryText();
+    int GetHistoryTextX();
+    int GetHistoryTextY();
     int GetActiveMapX();
     int GetActiveMapY();
 

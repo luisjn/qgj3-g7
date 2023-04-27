@@ -35,12 +35,14 @@ private:
     void GameplayOnRun();
     void GameplayOnPause();
     void GameplayOnEnd();
+    void GameplayOnHistory();
     void SetRenderAvailable();
     int RandomPosX();
     int RandomPosY();
     int RandomEnemy();
     int RandomNumEnemies();
     void SpawnEnemies();
+    void InputHistory(int side_ID);
 
 public:
     std::list<Projectile *> projectiles;
@@ -60,11 +62,16 @@ public:
     bool renderEnemy;
     bool renderShoots;
     bool renderMenu;
+    bool renderHistory;
     bool renderCinematic;
     int lbx = 20, ubx = 100;
     int lby = 10, uby = 20;
     int lbe = 1, ube = 5;
     int re = 6;
+
+    std::string GetHistoryText();
+    int GetHistoryTextX();
+    int GetHistoryTextY();
 
     // void GetSoundEngine(Sound *SoundEngine); // SE: To get the Sound Engine pass by Game Engine
     bool IsRunning();

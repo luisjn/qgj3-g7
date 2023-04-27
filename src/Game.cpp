@@ -54,6 +54,7 @@ void Game::SetRenderAvailable()
         renderShoots = false;
         renderMenu = false;
         renderCinematic = false;
+        renderHistory = false;
         break;
     case GAMEPLAY_STATE_PRESENTATION:
         renderBkg = false;
@@ -62,6 +63,7 @@ void Game::SetRenderAvailable()
         renderShoots = false;
         renderMenu = false;
         renderCinematic = true;
+        renderHistory = false;
         break;
     case GAMEPLAY_STATE_MAIN_MENU:
         renderBkg = false;
@@ -70,6 +72,7 @@ void Game::SetRenderAvailable()
         renderShoots = false;
         renderMenu = true;
         renderCinematic = false;
+        renderHistory = false;
         break;
     case GAMEPLAY_STATE_ON_GAME:
         renderBkg = true;
@@ -78,6 +81,16 @@ void Game::SetRenderAvailable()
         renderShoots = true;
         renderMenu = false;
         renderCinematic = false;
+        renderHistory = false;
+        break;
+    case GAMEPLAY_STATE_HISTORY:
+        renderBkg = false;
+        renderShip = false;
+        renderEnemy = false;
+        renderShoots = false;
+        renderMenu = false;
+        renderCinematic = false;
+        renderHistory = true;
         break;
     case GAMEPLAY_STATE_PAUSE:
         renderBkg = true;
@@ -86,6 +99,7 @@ void Game::SetRenderAvailable()
         renderShoots = true;
         renderMenu = true;
         renderCinematic = false;
+        renderHistory = false;
         break;
     case GAMEPLAY_STATE_END_GAME:
         renderBkg = false;
@@ -94,8 +108,24 @@ void Game::SetRenderAvailable()
         renderShoots = false;
         renderMenu = false;
         renderCinematic = true;
+        renderHistory = false;
         break;
     }
+}
+
+std::string Game::GetHistoryText()
+{
+    return level->GetHistoryText();
+}
+
+int Game::GetHistoryTextX()
+{
+    return level->GetHistoryTextX();
+}
+
+int Game::GetHistoryTextY()
+{
+    return level->GetHistoryTextY();
 }
 
 void Game::Update()
@@ -119,6 +149,9 @@ void Game::Update()
         break;
     case GAMEPLAY_STATE_END_GAME:
         GameplayOnEnd();
+        break;
+    case GAMEPLAY_STATE_HISTORY:
+        GameplayOnHistory();
         break;
     }
 }
@@ -155,6 +188,13 @@ void Game::GameplayOnPresentation()
     }
 }
 
+void Game::GameplayOnHistory()
+{
+    //GAMEPLAY_STATE_HISTORY
+    //gameState = GAMEPLAY_STATE_ON_GAME;
+    //SetRenderAvailable();
+}
+
 void Game::GameplayOnMainMenu()
 {
     bool MM_NotExist = true;
@@ -169,7 +209,7 @@ void Game::GameplayOnMainMenu()
             case MENU_ACTION_NULL:
                 break;
             case MENU_ACTION_CONTINUE_GAME:
-                gameState = GAMEPLAY_STATE_ON_GAME;
+                gameState = GAMEPLAY_STATE_HISTORY;
                 SetRenderAvailable();
                 break;
             case MENU_ACTION_SWITCH_SOUND:
@@ -410,6 +450,28 @@ void Game::Input(int side_ID)
         break;
     case GAMEPLAY_STATE_ON_GAME:
         InputMove(side_ID);
+        break;
+    case GAMEPLAY_STATE_HISTORY:
+        InputHistory(side_ID);
+        break;
+    }
+}
+
+void Game::InputHistory(int side_ID)
+{
+    switch (side_ID)
+    {
+    case GAMEPLAY_SHOOT:
+        gameState = GAMEPLAY_STATE_ON_GAME;
+        SetRenderAvailable();
+        break;
+    case GAMEPLAY_INTRO:
+        gameState = GAMEPLAY_STATE_ON_GAME;
+        SetRenderAvailable();
+        break;
+    case GAMEPLAY_EXIT:
+        gameState = GAMEPLAY_STATE_ON_GAME;
+        SetRenderAvailable();
         break;
     }
 }

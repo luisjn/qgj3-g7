@@ -34,9 +34,20 @@ LevelFile::~LevelFile()
 
 std::string LevelFile::GetHistoryText()
 {
-    std::string result;
+    //std::string result;
     // work!!!
-    return result;
+    //return result;
+    return level_text;
+}
+
+int LevelFile::GetHistoryTextX()
+{
+    return level_text_dx;
+}
+
+int LevelFile::GetHistoryTextY()
+{
+    return level_text_dy;
 }
 
 int LevelFile::GetActiveMapX()
@@ -182,6 +193,9 @@ int LevelFile::GetMapSizeY()
 
 void LevelFile::LoadLevelFileInfo()
 {
+    level_text = "";
+    level_text_dx = 0;
+    level_text_dy = 0;
     level_file_path=GAME_LEVEL_NAME_INITIAL_PATH+
         std::to_string(levelID)+
         GAME_LEVEL_EXTENTION;
@@ -235,6 +249,11 @@ void LevelFile::LoadLevelFileInfo()
                         std::cout << "activeMap_y: "<< activeMap_y << "\n";
 #endif
                     }
+                }
+                if(string_line==2){
+                    level_text_dx = TextToInt.length();
+                    level_text_dy++;
+                    level_text = level_text + TextToInt + "\n";
                 }
                 string_val++;
                 string_pos = restostring.find(';')+1;

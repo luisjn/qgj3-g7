@@ -87,21 +87,22 @@
 #define GAMEPLAY_STATE_ON_GAME 3
 #define GAMEPLAY_STATE_PAUSE 4
 #define GAMEPLAY_STATE_END_GAME 5
+#define GAMEPLAY_STATE_HISTORY 6
 
 // Console
 #define Width 120
 #define Height 29
 #define Limit 3
 
+// Define for Enemies:
+#define ENEMY_RADIOUS_IMPACT 0.25f
+
 // Define for Menues:
 // --------------------
 // A) Menues available:
 #define MENU_MAINMENU_CODE 0
 #define MENU_PAUSEMENU_CODE 1
-
-// Define for Enemies:
-#define ENEMY_RADIOUS_IMPACT 0.25f
-
+#define MENU_HISTORYMENU_CODE 2
 // B) Files of menues:
 #define MENU_MAINMENU_FILE "UI/MainMenu_00.txt"
 #define MENU_PAUSEMENU_FILE "UI/PauseMenu_00.txt"
