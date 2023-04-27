@@ -68,6 +68,7 @@ void Renderer::Update()
     ProcessInput();
     game->Update();
     Render();
+    sound_engine->PlaySnd(game->GetSountToActive());
     *mRunning = game->IsRunning();
 }
 
@@ -98,7 +99,7 @@ void Renderer::ProcessInput()
     // SPACE:
     if (GetKeyState(VK_SPACE) & 0x8000)
     {
-        sound_engine->PlaySnd(0); // SE: Sound test: Shot!
+        //sound_engine->PlaySnd(1); // SE: Sound test: Shot!
         game->Input(GAMEPLAY_SHOOT);
     }
 
@@ -106,22 +107,22 @@ void Renderer::ProcessInput()
     if (GetKeyState('A') & 0x8000)
     {
         game->Input(GAMEPLAY_MOVE_A);
-        sound_engine->PlaySnd(2);
+        //sound_engine->PlaySnd(3);
     }
     if (GetKeyState('D') & 0x8000)
     {
         game->Input(GAMEPLAY_MOVE_D);
-        sound_engine->PlaySnd(2);
+        //sound_engine->PlaySnd(3);
     }
     if (GetKeyState('W') & 0x8000)
     {
         game->Input(GAMEPLAY_MOVE_W);
-        sound_engine->PlaySnd(2);
+        //sound_engine->PlaySnd(3);
     }
     if (GetKeyState('S') & 0x8000)
     {
         game->Input(GAMEPLAY_MOVE_S);
-        sound_engine->PlaySnd(2);
+        //sound_engine->PlaySnd(3);
     }
 
     // ENTER;
@@ -140,19 +141,19 @@ void Renderer::ProcessInput()
     // Function Keys (F1 to F12):
     if (GetKeyState(VK_F1) & 0x8000)
     {
-        sound_engine->SetActivatedSound(false); // SE: Sound activate sound engine
+        //sound_engine->SetActivatedSound(false); // SE: Sound activate sound engine
     }
     if (GetKeyState(VK_F2) & 0x8000)
     {
-        sound_engine->SetActivatedSound(true); // SE: Sound deactivate sound engine
+        //sound_engine->SetActivatedSound(true); // SE: Sound deactivate sound engine
     }
     if (GetKeyState(VK_F3) & 0x8000)
     {
-        sound_engine->ChangeActivatedSound(); // SE: Change avtivate sound state
+        //sound_engine->ChangeActivatedSound(); // SE: Change avtivate sound state
     }
     if (GetKeyState(VK_F4) & 0x8000)
     {
-        sound_engine->PlayMusic(0); // SE: Change avtivate sound state
+        //sound_engine->PlayMusic(0); // SE: Change avtivate sound state
     }
     if (GetKeyState(VK_F5) & 0x8000)
     {

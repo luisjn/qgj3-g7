@@ -29,6 +29,8 @@ private:
     int gameState;
     bool isRunning;
 
+    int soundToPlay;
+
     void GameplayInitial();
     void GameplayOnPresentation();
     void GameplayOnMainMenu();
@@ -72,6 +74,8 @@ public:
     std::string GetHistoryText();
     int GetHistoryTextX();
     int GetHistoryTextY();
+
+    int GetSountToActive();
 
     // void GetSoundEngine(Sound *SoundEngine); // SE: To get the Sound Engine pass by Game Engine
     bool IsRunning();

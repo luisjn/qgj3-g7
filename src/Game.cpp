@@ -13,6 +13,7 @@ Game::Game()
     LoadLevel(0);
     mSpaceship = new Spaceship();
     SpawnEnemies();
+    soundToPlay = SOUND_NOTHING;
 }
 
 Game::~Game()
@@ -161,6 +162,7 @@ void Game::GameplayInitial()
     //    std::cout << "gameState: "<< gameState << "\n";
     gameState = GAMEPLAY_STATE_PRESENTATION; // HARDCODE JUMP TO NEXT STATE...
     SetRenderAvailable();
+    soundToPlay = MUSIC_00;
 }
 
 void Game::GameplayOnPresentation()
@@ -204,6 +206,9 @@ void Game::GameplayOnMainMenu()
         {
             MM_NotExist = false;
             int result = (*itMenues)->Update();
+            //if(result!=MENU_ACTION_NULL){
+            //    soundToPlay=SOUND_HIT_03;
+            //}
             switch (result)
             {
             case MENU_ACTION_NULL:
@@ -211,9 +216,10 @@ void Game::GameplayOnMainMenu()
             case MENU_ACTION_CONTINUE_GAME:
                 gameState = GAMEPLAY_STATE_HISTORY;
                 SetRenderAvailable();
+                soundToPlay=MUSIC_00;
                 break;
             case MENU_ACTION_SWITCH_SOUND:
-                // change sound mode...
+                soundToPlay = SOUND_CHANGE;
                 break;
             case MENU_ACTION_EXIT_GAME:
                 isRunning = false;
@@ -225,6 +231,7 @@ void Game::GameplayOnMainMenu()
             case MENU_ACTION_GO_PRESENTATION:
                 gameState = GAMEPLAY_STATE_PRESENTATION;
                 SetRenderAvailable();
+                soundToPlay=MUSIC_00;
                 break;
             }
             if (!(*itMenues)->GetMenuActive())
@@ -240,6 +247,13 @@ void Game::GameplayOnMainMenu()
     }
 }
 
+int Game::GetSountToActive()
+{
+    int response = soundToPlay;
+    soundToPlay = SOUND_NOTHING;
+    return response;
+}
+
 void Game::GameplayOnPause()
 {
     bool PM_NotExist = true;
@@ -249,6 +263,9 @@ void Game::GameplayOnPause()
         {
             PM_NotExist = false;
             int result = (*itMenues)->Update();
+            //if(result!=MENU_ACTION_NULL){
+            //    soundToPlay=SOUND_HIT_03;
+            //}
             switch (result)
             {
             case MENU_ACTION_NULL:
@@ -256,9 +273,10 @@ void Game::GameplayOnPause()
             case MENU_ACTION_CONTINUE_GAME:
                 gameState = GAMEPLAY_STATE_ON_GAME;
                 SetRenderAvailable();
+                soundToPlay=SOUND_STOP;
                 break;
             case MENU_ACTION_SWITCH_SOUND:
-                // change sound mode...
+                soundToPlay = SOUND_CHANGE;
                 break;
             case MENU_ACTION_EXIT_GAME:
                 isRunning = false;
@@ -266,6 +284,7 @@ void Game::GameplayOnPause()
             case MENU_ACTION_BACK_MAINMENU:
                 gameState = GAMEPLAY_STATE_MAIN_MENU; // HARDCODE JUMP TO NEXT STATE...
                 SetRenderAvailable();
+                soundToPlay=MUSIC_00;
                 break;
             }
             if (!(*itMenues)->GetMenuActive())
@@ -293,6 +312,7 @@ void Game::GameplayOnEnd()
                 case MENU_ACTION_CONTINUE_GAME:
                         gameState = GAMEPLAY_STATE_ON_GAME;
                         SetRenderAvailable();
+                        soundToPlay=SOUND_STOP;
                     break;
             }
             if(!(*itCinematics)->GetMenuActive()){
@@ -464,14 +484,17 @@ void Game::InputHistory(int side_ID)
     case GAMEPLAY_SHOOT:
         gameState = GAMEPLAY_STATE_ON_GAME;
         SetRenderAvailable();
+        soundToPlay=SOUND_STOP;
         break;
     case GAMEPLAY_INTRO:
         gameState = GAMEPLAY_STATE_ON_GAME;
         SetRenderAvailable();
+        soundToPlay=SOUND_STOP;
         break;
     case GAMEPLAY_EXIT:
         gameState = GAMEPLAY_STATE_ON_GAME;
         SetRenderAvailable();
+        soundToPlay=SOUND_STOP;
         break;
     }
 }

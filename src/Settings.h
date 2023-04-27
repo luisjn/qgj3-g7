@@ -28,11 +28,38 @@
 //  B) Define if Sound start ENABLE by default:
 #define SOUND_ENGINE_AUTOSTART
 // C) Files "WAV" locations:
+/*
+	8-Bit Sound Effects Library
+		"8-Bit Sound Library.zip"
+		https://opengameart.org/content/8-bit-sound-effects-library
+		Author: Little Robot Sound Factory
+		Monday, April 13, 2015 - 20:44
+		Art Type: Sound Effect
+*/
 #define SOUND_HIT_00_PATH "Sounds/Hit_00.wav"
 #define SOUND_HIT_01_PATH "Sounds/Hit_01.wav"
 #define SOUND_HIT_02_PATH "Sounds/Hit_02.wav"
 #define SOUND_HIT_03_PATH "Sounds/Hit_03.wav"
+/*
+	5 Chiptunes (Action)
+		"5 Action Chiptunes By Juhani Junkala.zip"
+		https://opengameart.org/content/5-chiptunes-action
+		Author: SubspaceAudio
+		Sunday, April 17, 2016 - 10:18
+		Art Type: Music
+*/
 #define MUSIC_00_PATH "Music/Juhani Junkala [Retro Game Music Pack] Ending.wav"
+// D) IDs:
+#define SOUND_DISABLE -21
+#define SOUND_ENABLE -20
+#define SOUND_CHANGE -10
+#define SOUND_STOP -1
+#define SOUND_NOTHING 0
+#define SOUND_HIT_00 1
+#define SOUND_HIT_01 2
+#define SOUND_HIT_02 3
+#define SOUND_HIT_03 4
+#define MUSIC_00 10
 
 // Define for Load Files:
 // ----------------------
