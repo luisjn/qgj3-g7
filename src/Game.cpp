@@ -54,6 +54,7 @@ void Game::SetRenderAvailable()
         renderShoots = false;
         renderMenu = false;
         renderCinematic = false;
+        renderPlayerBar = false;
         break;
     case GAMEPLAY_STATE_PRESENTATION:
         renderBkg = false;
@@ -62,6 +63,7 @@ void Game::SetRenderAvailable()
         renderShoots = false;
         renderMenu = false;
         renderCinematic = true;
+        renderPlayerBar = false;
         break;
     case GAMEPLAY_STATE_MAIN_MENU:
         renderBkg = false;
@@ -70,6 +72,7 @@ void Game::SetRenderAvailable()
         renderShoots = false;
         renderMenu = true;
         renderCinematic = false;
+        renderPlayerBar = false;
         break;
     case GAMEPLAY_STATE_ON_GAME:
         renderBkg = true;
@@ -78,6 +81,7 @@ void Game::SetRenderAvailable()
         renderShoots = true;
         renderMenu = false;
         renderCinematic = false;
+        renderPlayerBar = true;
         break;
     case GAMEPLAY_STATE_PAUSE:
         renderBkg = true;
@@ -86,6 +90,7 @@ void Game::SetRenderAvailable()
         renderShoots = true;
         renderMenu = true;
         renderCinematic = false;
+        renderPlayerBar = false;
         break;
     case GAMEPLAY_STATE_END_GAME:
         renderBkg = false;
@@ -94,6 +99,7 @@ void Game::SetRenderAvailable()
         renderShoots = false;
         renderMenu = false;
         renderCinematic = true;
+        renderPlayerBar = false;
         break;
     }
 }
@@ -132,26 +138,30 @@ void Game::GameplayInitial()
 
 void Game::GameplayOnPresentation()
 {
-    bool CN_NotExist=true;
+    bool CN_NotExist = true;
     for (itCinematics = cinematics.begin(); itCinematics != cinematics.end(); itCinematics++)
     {
-        if((*itCinematics)->GetMenuID()==CINEMATIC_INITIAL){
-            CN_NotExist=false;
+        if ((*itCinematics)->GetMenuID() == CINEMATIC_INITIAL)
+        {
+            CN_NotExist = false;
             int result = (*itCinematics)->Update();
-            switch(result){
-                case MENU_ACTION_BACK_MAINMENU:
-                    gameState = GAMEPLAY_STATE_MAIN_MENU; // HARDCODE JUMP TO NEXT STATE...
-                    SetRenderAvailable();
-                    break;
+            switch (result)
+            {
+            case MENU_ACTION_BACK_MAINMENU:
+                gameState = GAMEPLAY_STATE_MAIN_MENU; // HARDCODE JUMP TO NEXT STATE...
+                SetRenderAvailable();
+                break;
             }
-            if(!(*itCinematics)->GetMenuActive()){
+            if (!(*itCinematics)->GetMenuActive())
+            {
                 delete (*itCinematics);
                 itCinematics = cinematics.erase(itCinematics);
             }
         }
     }
-    if(CN_NotExist){
-        cinematics.push_back(new CinematicBasic(CINEMATIC_INITIAL,0,0,CINEMATIC_INITIAL_FILE));
+    if (CN_NotExist)
+    {
+        cinematics.push_back(new CinematicBasic(CINEMATIC_INITIAL, 0, 0, CINEMATIC_INITIAL_FILE));
     }
 }
 
@@ -243,30 +253,34 @@ void Game::GameplayOnPause()
 
 void Game::GameplayOnEnd()
 {
-    bool CN_NotExist=true;
+    bool CN_NotExist = true;
     for (itCinematics = cinematics.begin(); itCinematics != cinematics.end(); itCinematics++)
     {
-        if((*itCinematics)->GetMenuID()==CINEMATIC_END){
-            CN_NotExist=false;
+        if ((*itCinematics)->GetMenuID() == CINEMATIC_END)
+        {
+            CN_NotExist = false;
             int result = (*itCinematics)->Update();
-            switch(result){
-                case MENU_ACTION_CONTINUE_GAME:
-                        gameState = GAMEPLAY_STATE_ON_GAME;
-                        SetRenderAvailable();
-                    break;
+            switch (result)
+            {
+            case MENU_ACTION_CONTINUE_GAME:
+                gameState = GAMEPLAY_STATE_ON_GAME;
+                SetRenderAvailable();
+                break;
             }
-            if(!(*itCinematics)->GetMenuActive()){
+            if (!(*itCinematics)->GetMenuActive())
+            {
                 delete (*itCinematics);
                 itCinematics = cinematics.erase(itCinematics);
             }
         }
     }
-    if(CN_NotExist){
+    if (CN_NotExist)
+    {
         std::string pathFile = CINEMATIC_END_FILE;
         // FAIL CONDITION:
         if (mSpaceship->mHp <= 0)
         {
-            pathFile=CINEMATIC_ENDFAIL_FILE;
+            pathFile = CINEMATIC_ENDFAIL_FILE;
             Restart();
         }
         // VICTORY CONDITION:
@@ -277,7 +291,7 @@ void Game::GameplayOnEnd()
             Restart();
         }
         */
-        cinematics.push_back(new CinematicBasic(CINEMATIC_END,0,0,pathFile));
+        cinematics.push_back(new CinematicBasic(CINEMATIC_END, 0, 0, pathFile));
     }
 }
 
@@ -287,16 +301,16 @@ void Game::GameplayOnRun()
     if (mSpaceship->mHp <= 0)
     {
         gameState = GAMEPLAY_STATE_END_GAME;
+        enemiesKilled = 0;
         SetRenderAvailable();
     }
+
     // VICTORY CONDITION:
-    /*
-    if (???????????)
+    if ((level->GetActiveMapX() == 1 && level->GetActiveMapY() == 2) && enemies.empty())
     {
         gameState = GAMEPLAY_STATE_END_GAME;
         SetRenderAvailable();
     }
-    */
 
     if (mSpaceship->Position.x > Width - Limit)
     {
@@ -348,13 +362,13 @@ void Game::GameplayOnRun()
 
         for (itProjectiles = projectiles.begin(); itProjectiles != projectiles.end(); itProjectiles++)
         {
-            if ((*itEnemies)->IsColliding((*itProjectiles)->Position(),(*itProjectiles)->GetDirection(),(*itProjectiles)->GetSpeedX(),(*itProjectiles)->GetSpeedY()))
+            if ((*itEnemies)->IsColliding((*itProjectiles)->Position(), (*itProjectiles)->GetDirection(), (*itProjectiles)->GetSpeedX(), (*itProjectiles)->GetSpeedY()))
             {
                 delete (*itProjectiles);
                 itProjectiles = projectiles.erase(itProjectiles);
                 delete (*itEnemies);
                 itEnemies = enemies.erase(itEnemies);
-                // COUNT ENEMIES DIED
+                enemiesKilled++;
             }
         }
     }
@@ -378,11 +392,11 @@ void Game::Input(int side_ID)
     case GAMEPLAY_STATE_INTIAL:
         break;
     case GAMEPLAY_STATE_PRESENTATION:
-            for (itCinematics = cinematics.begin(); itCinematics != cinematics.end(); itCinematics++)
-            {
-                (*itCinematics)->Input(side_ID);
-            }
-            break;
+        for (itCinematics = cinematics.begin(); itCinematics != cinematics.end(); itCinematics++)
+        {
+            (*itCinematics)->Input(side_ID);
+        }
+        break;
     case GAMEPLAY_STATE_MAIN_MENU:
         for (itMenues = menues.begin(); itMenues != menues.end(); itMenues++)
         {
@@ -402,11 +416,11 @@ void Game::Input(int side_ID)
         }
         break;
     case GAMEPLAY_STATE_END_GAME:
-            for (itCinematics = cinematics.begin(); itCinematics != cinematics.end(); itCinematics++)
-            {
-                (*itCinematics)->Input(side_ID);
-            }
-            break;
+        for (itCinematics = cinematics.begin(); itCinematics != cinematics.end(); itCinematics++)
+        {
+            (*itCinematics)->Input(side_ID);
+        }
+        break;
         break;
     case GAMEPLAY_STATE_ON_GAME:
         InputMove(side_ID);

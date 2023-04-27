@@ -231,8 +231,6 @@ void Renderer::Render()
          */
         GetBackgroundImage();
         RenderBackground();
-        GoToXY(1, 1);
-        std::cout << game->PlayerHP();
     }
     if (game->renderShip)
     {
@@ -286,14 +284,24 @@ void Renderer::Render()
     {
         for (game->itCinematics = game->cinematics.begin(); game->itCinematics != game->cinematics.end(); game->itCinematics++)
         {
-            if(((*game->itCinematics)->GetDX() < Width)&&((*game->itCinematics)->GetDY() < (Height))){
+            if (((*game->itCinematics)->GetDX() < Width) && ((*game->itCinematics)->GetDY() < (Height)))
+            {
                 MergeImageASCII((*game->itCinematics)->Draw(), (*game->itCinematics)->GetX0(), (*game->itCinematics)->GetY0(), (*game->itCinematics)->GetDX(), (*game->itCinematics)->GetDY());
-            }else{
-                GoToXY((*game->itCinematics)->GetX0(),(*game->itCinematics)->GetY0());
+            }
+            else
+            {
+                GoToXY((*game->itCinematics)->GetX0(), (*game->itCinematics)->GetY0());
                 std::cout << (*game->itCinematics)->Draw();
                 std::cout << "HOLA!";
             }
         }
+    }
+    if (game->renderPlayerBar)
+    {
+        GoToXY(49, 30);
+        std::cout << "HP: " << game->PlayerHP();
+        GoToXY(58, 30);
+        std::cout << "Enemies Killed: " << game->enemiesKilled;
     }
 }
 
