@@ -59,6 +59,8 @@ public:
     std::list<CinematicBasic *> cinematics;
     std::list<CinematicBasic *>::iterator itCinematics;
 
+    bool onWinState;
+
     bool renderBkg;
     bool renderShip;
     bool renderEnemy;

@@ -9,11 +9,11 @@ x                                                                               
                                                                                                                         
                                                                                                                         
                                                                                              .                 .        
-                                                   GGG   OOO  DDDD                                                      
-                                                  G     O   O D   D                                                     
-                                                  G GGG O   O D   D                                                    
-                  .               .               G   G O   O D   D                      .                              
-       .                                           GGG   OOO  DDDD                                         .            
+                                                GGG   OOO   OOO  DDDD                                                   
+                                               G     O   O O   O D   D                                                  
+                                               G GGG O   O O   O D   D                                                  
+                               .               G   G O   O O   O D   D                      .                           
+       .                                        GGG   OOO   OOO  DDDD                                         .         
                                                                                                                         
                                                                                                                         
                                                                                                                         

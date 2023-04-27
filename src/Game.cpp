@@ -28,6 +28,7 @@ Game::~Game()
 
 void Game::Restart()
 {
+    onWinState=false;
     delete mSpaceship;
     enemies.clear();
     mSpaceship = new Spaceship();
@@ -105,7 +106,7 @@ void Game::SetRenderAvailable()
         renderMenu = true;
         renderCinematic = false;
         renderHistory = false;
-        renderPlayerBar = false;
+        renderPlayerBar = true;
         break;
     case GAMEPLAY_STATE_END_GAME:
         renderBkg = false;
@@ -338,19 +339,14 @@ void Game::GameplayOnEnd()
     {
         std::string pathFile = CINEMATIC_END_FILE;
         // FAIL CONDITION:
-        if (mSpaceship->mHp <= 0)
-        {
-            pathFile = CINEMATIC_ENDFAIL_FILE;
-            Restart();
-        }
-        // VICTORY CONDITION:
-        /*
-        if (???????????)
+        if (onWinState)
         {
             pathFile=CINEMATIC_ENDGOOD_FILE;
             Restart();
+        }else{
+            pathFile = CINEMATIC_ENDFAIL_FILE;
+            Restart();
         }
-        */
         cinematics.push_back(new CinematicBasic(CINEMATIC_END, 0, 0, pathFile));
     }
 }
@@ -361,6 +357,7 @@ void Game::GameplayOnRun()
     if (mSpaceship->mHp <= 0)
     {
         gameState = GAMEPLAY_STATE_END_GAME;
+        onWinState=false;
         enemiesKilled = 0;
         SetRenderAvailable();
     }
@@ -369,6 +366,7 @@ void Game::GameplayOnRun()
     if ((level->GetActiveMapX() == 1 && level->GetActiveMapY() == 2) && enemies.empty())
     {
         gameState = GAMEPLAY_STATE_END_GAME;
+        onWinState=true;
         SetRenderAvailable();
     }
 
