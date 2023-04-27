@@ -29,18 +29,22 @@ private:
     int gameState;
     bool isRunning;
 
+    int soundToPlay;
+
     void GameplayInitial();
     void GameplayOnPresentation();
     void GameplayOnMainMenu();
     void GameplayOnRun();
     void GameplayOnPause();
     void GameplayOnEnd();
+    void GameplayOnHistory();
     void SetRenderAvailable();
     int RandomPosX();
     int RandomPosY();
     int RandomEnemy();
     int RandomNumEnemies();
     void SpawnEnemies();
+    void InputHistory(int side_ID);
 
 public:
     std::list<Projectile *> projectiles;
@@ -55,16 +59,27 @@ public:
     std::list<CinematicBasic *> cinematics;
     std::list<CinematicBasic *>::iterator itCinematics;
 
+    bool onWinState;
+
     bool renderBkg;
     bool renderShip;
     bool renderEnemy;
     bool renderShoots;
     bool renderMenu;
+    bool renderHistory;
     bool renderCinematic;
+    bool renderPlayerBar;
     int lbx = 20, ubx = 100;
     int lby = 10, uby = 20;
     int lbe = 1, ube = 5;
     int re = 6;
+    int enemiesKilled = 0;
+
+    std::string GetHistoryText();
+    int GetHistoryTextX();
+    int GetHistoryTextY();
+
+    int GetSountToActive();
 
     // void GetSoundEngine(Sound *SoundEngine); // SE: To get the Sound Engine pass by Game Engine
     bool IsRunning();

@@ -62,6 +62,19 @@ bool Sound::GetSoundActivated()
 
 void Sound::PlaySnd(int id)
 {
+
+	if (id == SOUND_DISABLE){
+		SetActivatedSound(false);
+	}
+	if (id == SOUND_ENABLE){
+		SetActivatedSound(true);
+	}
+	if (id == SOUND_CHANGE){
+		ChangeActivatedSound();
+	}
+	if (id == SOUND_STOP) {
+		StopSnd();
+	}
 	if(soundActivated){
 #ifdef DEBUG_MODE
 		std::cout << "PlaySound, ID: " << id << "\n";
@@ -69,20 +82,22 @@ void Sound::PlaySnd(int id)
 
 #ifdef SOUND_ENGINE_WINDOWS
 		// Leard about "SND_*" #defines: https://learn.microsoft.com/en-us/previous-versions/dd743680(v=vs.85)
-		if (id == 0) {
+		if (id == SOUND_HIT_00) {
 			PlaySound(TEXT(SOUND_HIT_00_PATH), NULL, SND_FILENAME | SND_ASYNC);
 		}
-		if (id == 1) {
+		if (id == SOUND_HIT_01) {
 			PlaySound(TEXT(SOUND_HIT_01_PATH), NULL, SND_FILENAME | SND_ASYNC);
 		}
-		if (id == 2) {
+		if (id == SOUND_HIT_02) {
 			PlaySound(TEXT(SOUND_HIT_02_PATH), NULL, SND_FILENAME | SND_ASYNC);
 		}
-		if (id == 3) {
+		if (id == SOUND_HIT_03) {
 			PlaySound(TEXT(SOUND_HIT_03_PATH), NULL, SND_FILENAME | SND_ASYNC);
 		}
+		if (id == MUSIC_00) {
+			PlayMusic(MUSIC_00);
+		}
 #endif
-
 	}
 }
 
@@ -95,7 +110,7 @@ void Sound::PlayMusic(int id)
 
 #ifdef SOUND_ENGINE_WINDOWS
 		// Leard about "SND_*" #defines: https://learn.microsoft.com/en-us/previous-versions/dd743680(v=vs.85)
-		if (id == 0) {
+		if (id == MUSIC_00) {
 			PlaySound(TEXT(MUSIC_00_PATH), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 		}
 #endif

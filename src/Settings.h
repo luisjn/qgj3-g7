@@ -28,11 +28,38 @@
 //  B) Define if Sound start ENABLE by default:
 #define SOUND_ENGINE_AUTOSTART
 // C) Files "WAV" locations:
+/*
+	8-Bit Sound Effects Library
+		"8-Bit Sound Library.zip"
+		https://opengameart.org/content/8-bit-sound-effects-library
+		Author: Little Robot Sound Factory
+		Monday, April 13, 2015 - 20:44
+		Art Type: Sound Effect
+*/
 #define SOUND_HIT_00_PATH "Sounds/Hit_00.wav"
 #define SOUND_HIT_01_PATH "Sounds/Hit_01.wav"
 #define SOUND_HIT_02_PATH "Sounds/Hit_02.wav"
 #define SOUND_HIT_03_PATH "Sounds/Hit_03.wav"
+/*
+	5 Chiptunes (Action)
+		"5 Action Chiptunes By Juhani Junkala.zip"
+		https://opengameart.org/content/5-chiptunes-action
+		Author: SubspaceAudio
+		Sunday, April 17, 2016 - 10:18
+		Art Type: Music
+*/
 #define MUSIC_00_PATH "Music/Juhani Junkala [Retro Game Music Pack] Ending.wav"
+// D) IDs:
+#define SOUND_DISABLE -21
+#define SOUND_ENABLE -20
+#define SOUND_CHANGE -10
+#define SOUND_STOP -1
+#define SOUND_NOTHING 0
+#define SOUND_HIT_00 1
+#define SOUND_HIT_01 2
+#define SOUND_HIT_02 3
+#define SOUND_HIT_03 4
+#define MUSIC_00 10
 
 // Define for Load Files:
 // ----------------------
@@ -87,21 +114,22 @@
 #define GAMEPLAY_STATE_ON_GAME 3
 #define GAMEPLAY_STATE_PAUSE 4
 #define GAMEPLAY_STATE_END_GAME 5
+#define GAMEPLAY_STATE_HISTORY 6
 
 // Console
 #define Width 120
 #define Height 29
-#define Limit 3
+#define Limit 1
+
+// Define for Enemies:
+#define ENEMY_RADIOUS_IMPACT 0.25f
 
 // Define for Menues:
 // --------------------
 // A) Menues available:
 #define MENU_MAINMENU_CODE 0
 #define MENU_PAUSEMENU_CODE 1
-
-// Define for Enemies:
-#define ENEMY_RADIOUS_IMPACT 0.25f
-
+#define MENU_HISTORYMENU_CODE 2
 // B) Files of menues:
 #define MENU_MAINMENU_FILE "UI/MainMenu_00.txt"
 #define MENU_PAUSEMENU_FILE "UI/PauseMenu_00.txt"
